@@ -28,26 +28,26 @@
     </header>
     <div class="container">
         <div class="title">Cadastrar-se</div>
-        <form action="#">
+        <form method="POST">
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">Nome Completo</span>
-                    <input type="text" placeholder="Digite seu nome">
+                    <input type="text" placeholder="Digite seu nome" name="nomeCompleto">
                 </div>
                 <div class="input-box">
                     <span class="details">Email</span>
-                    <input type="email" placeholder="Digite seu email">
+                    <input type="email" placeholder="Digite seu email" name="emailUsuario">
                 </div>
                 <div class="input-box">
                     <span class="details">Senha</span>
-                    <input type="password" placeholder="Digite sua senha">
+                    <input type="password" placeholder="Digite sua senha" name="senhaUsuario">
                 </div>
                 <div class="input-box">
                     <span class="details">Confirmar senha</span>
-                    <input type="password" placeholder="Digite sua senha novamente">
+                    <input type="password" placeholder="Digite sua senha novamente" name="senhaVerificar">
                 </div>
             </div>
-            <button type="submit">Cadastrar-se</button>
+            <button type="submit" formaction="http://localhost:3000/usuarios">Cadastrar-se</button>
         </form>
     </div>
     <footer>
