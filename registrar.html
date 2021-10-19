@@ -28,7 +28,7 @@
     </header>
     <div class="container">
         <div class="title">Cadastrar-se</div>
-        <form method="POST">
+        <form method="POST" id="formCadastro">
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">Nome Completo</span>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Email</span>
-                    <input type="email" placeholder="Digite seu email" name="emailUsuario">
+                    <input type="email" placeholder="Digite seu email" name="emailUsuario" data-min-length="3">
                 </div>
                 <div class="input-box">
                     <span class="details">Senha</span>
@@ -46,10 +46,15 @@
                     <span class="details">Confirmar senha</span>
                     <input type="password" placeholder="Digite sua senha novamente" name="senhaConfirmar">
                 </div>
+                <div id="termoUso">
+                    <label for="agreement">Eu li e aceito os <a href="#">Termos de Uso</a>:</label>
+                    <input type="checkbox" name="termosDeUso">
+                </div>
             </div>
-            <button type="submit" formaction="http://localhost:3000/usuarios">Cadastrar-se</button>
+            <button type="submit" id="btnCadastro" formaction="http://localhost:3000/usuarios">Cadastrar-se</button>
         </form>
     </div>
+    <p class="error-validation template"></p>
     <footer>
         <ul class="nav__links">
             <li class="footerTexto">© 2021 Aplicativo</li>
@@ -59,5 +64,6 @@
         </ul>
     </footer>
 </body>
+<script src="js/validar.js"></script>
 
 </html>
