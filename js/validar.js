@@ -1,7 +1,13 @@
 class Validacao {
     constructor() {
         this.validations = [
+            'data-required',
             'data-min-length',
+            'data-max-length',
+            'data-email-validate',
+            'data-only-letters',
+            'data-equal',
+            'data-password-validate'
         ]
     }
 
@@ -52,33 +58,147 @@ class Validacao {
         }
     }
 
+    // verifica se o input passou do limite de caracteres   
+    maxlength(input, maxValue) {
+        let inputLength = input.value.length;
+
+        let errorMessage = `O campo precisa ter menos que ${maxValue} caracteres!`
+
+        if (inputLength > maxValue) {
+            this.printMessage(input, errorMessage)
+        }
+    }
+
+    // valida e-mails
+    emailvalidate(input) {
+
+        // email@email.com -> email@email.com.br
+        let re = /\S+@\S+\.\S+/;
+
+        let email = input.value;
+
+        let errorMessage = `Insira um e-mail válido!`
+
+        if (!re.test(email)) {
+            this.printMessage(input, errorMessage)
+        }
+    }
+
+    // valida se o campo tem apenas letras
+    onlyletters(input) {
+        let re = /(?=^.{2,60}$)^[A-ZÀÁÂĖÈÉÊÌÍÒÓÔÕÙÚÛÇ´][a-zàáâãèéêìíóôõùúç´]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$/;
+
+        let inputValue = input.value;
+
+        let errorMessage = `Verifique se os dados preenchidos são válidos!`
+
+        if (!re.test(inputValue)) {
+            this.printMessage(input, errorMessage)
+        }
+    }
+
+
+
+    // verifica se o input é requerido
+    required(input) {
+        let inputValue = input.value;
+
+        if (inputValue === '') {
+            let errorMessage = `Este campo é obrigatório`
+
+            this.printMessage(input, errorMessage)
+        }
+    }
+
+    // verifica se dois campos são iguais
+    equal(input, inputName) {
+        let inputToCompare = document.getElementsByName(inputName)[0]
+        let errorMessage = `Este campo precisa estar igual ao ${inputName}`;
+
+        if (inputName === 'senhaUsuario') {
+            errorMessage = `Este campo precisa estar igual ao campo senha!`;
+        }
+
+
+        if (input.value != inputToCompare.value) {
+            this.printMessage(input, errorMessage)
+        }
+    }
+
+    // valida o campo senha
+    passwordvalidate(input) {
+        let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+        let inputValue = input.value;
+
+        let errorMessage = `A senha precisa ter ao menos 6 caracteres, uma letra e um número! (Não é permitido caracteres especiais).`
+
+        if (!re.test(inputValue)) {
+            this.printMessage(input, errorMessage)
+        }
+    }
+
+    validarContrato() {
+        const termoDeUso = document.querySelector('input[name="termosDeUso"]')
+
+        if (termoDeUso.checked === false) {
+            let errorMessage = `Você precisa aceitar os Termos de Uso para poder se cadastrar!`
+            this.printMessage(termoDeUso, errorMessage)
+        } else if (termoDeUso.checked === true) {
+            return true;
+        }
+    }
+
     // método para imprimir mensagens de erro na tela
     printMessage(input, msg) {
-        let template = document.querySelector('.error-validation').cloneNode(true)
 
-        template.textContent = msg;
+        // quantidade de erros
+        let errorsQty = input.parentNode.querySelector('.error-validation')
 
-        let inputParent = input.parentNode
+        if (errorsQty === null) {
+            let template = document.querySelector('.error-validation').cloneNode(true)
 
-        template.classList.remove('template')
+            template.textContent = msg;
 
-        inputParent.appendChild(template);
+            let inputParent = input.parentNode
+
+            template.classList.remove('template')
+
+            inputParent.appendChild(template);
+        }
     }
+
     // limpa as validações da tela
     cleanValidations(validations) {
         validations.forEach(el => el.remove())
     }
 }
 
-let form = document.getElementById('formCadastro')
 let btnCadastro = document.getElementById('btnCadastro')
 
 let validator = new Validacao();
 
 // evento que dispara as validações
 btnCadastro.addEventListener('click', function (e) {
-    e.preventDefault()
-
+    e.preventDefault();
+    let form = document.getElementById('formCadastro')
     validator.validate(form);
+    // Validando dados
+    if (validator.validarContrato() === true && document.querySelectorAll('.error-validation').length === 1) {
+        // Enviando formulário para o back-end  
+        const request = new XMLHttpRequest();
 
+        let data = {
+            nomeCompleto: document.querySelector('input[name="nomeCompleto"]').value,
+            senhaUsuario: document.querySelector('input[name="senhaUsuario"]').value,
+            emailUsuario: document.querySelector('input[name="emailUsuario"]').value,
+            termosDeUso: document.querySelector('input[name="termosDeUso"]').value
+        }
+
+        data = JSON.stringify(data)
+
+        request.open('post', 'http://localhost:3000/usuarios');
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        request.send(data)
+    }
 })
