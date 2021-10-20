@@ -195,10 +195,12 @@ btnCadastro.addEventListener('click', function (e) {
             termosDeUso: document.querySelector('input[name="termosDeUso"]').value
         }
 
+        console.log(data)
         data = JSON.stringify(data)
+        console.log(data)
 
-        request.open('post', 'http://localhost:3000/usuarios');
-        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        request.open('POST', 'http://localhost:3000/usuarios');
+        request.setRequestHeader("Content-Type", "application/json");
         request.send(data)
     }
 })
