@@ -195,9 +195,7 @@ btnCadastro.addEventListener('click', function (e) {
             termosDeUso: document.querySelector('input[name="termosDeUso"]').value
         }
 
-        console.log(data)
         data = JSON.stringify(data)
-        console.log(data)
 
         request.open('POST', 'http://localhost:3000/usuarios');
         request.setRequestHeader("Content-Type", "application/json");
