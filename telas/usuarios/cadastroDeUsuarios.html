@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../css/styles.css">
+        <title>Aplicativo React</title>
+    </head>
+
+    <body>
+        <header>
+            <img class="logo" src="../../images/logo.png" alt="logo" style="width: 10%;">
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="#">Página Inicial</a></li>
+                    <li><a href="#">Minhas Tarefas</a></li>
+                    <li><a href="#">Feed</a></li>
+                    <li><a href="#">Notificações</a></li>
+                </ul>
+            </nav>
+            <a class="cta">
+                <button id="btnLogin">Login</button>
+                <button onclick="window.location.href='./cadastroDeUsuarios.html'">Cadastrar-se</button>
+            </a>
+        </header>
+        <div class="container">
+            <div class="title">Cadastrar-se</div>
+            <form method="POST" id="formCadastroUsuario">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Nome Completo</span>
+                        <input type="text" placeholder="Digite seu nome" name="nomeCompleto" data-max-length="50"
+                            data-required data-only-letters>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Email</span>
+                        <input type="email" placeholder="Digite seu email" name="emailUsuario" data-min-length="3"
+                            data-required data-email-validate>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Senha</span>
+                        <input type="password" placeholder="Digite sua senha" name="senhaUsuario" data-required
+                            data-password-validate>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Confirmar senha</span>
+                        <input type="password" placeholder="Digite sua senha novamente" name="senhaConfirmar"
+                            data-equal="senhaUsuario" data-required>
+                    </div>
+                    <div id="termoUso">
+                        <label for="agreement">Eu li e aceito os <a href="#">Termos de Uso</a>:</label>
+                        <input type="checkbox" name="termosDeUso">
+                    </div>
+                </div>
+                <button type="submit" id="btnCadastro">Cadastrar-se</button>
+            </form>
+        </div>
+        <p class="error-validation template"></p>
+        <footer>
+            <ul class="nav__links">
+                <li class="footerTexto">© 2021 Aplicativo React</li>
+                <li><a class="footerTexto" href="#">Privacidade</a></li>
+                <li><a class="footerTexto" href="#">Termo de Uso</a></li>
+                <li><a class="footerTexto" href="#">Fale Conosco</a></li>
+            </ul>
+        </footer>
+    </body>
+    <script src="../../js/cadastroDeUsuarios/validarCadastro.js"></script>
+
+</html>

@@ -19,6 +19,7 @@ app.post('/usuarios', (req, res) => {
     if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
         //Mandar para o banco de dados
         console.log('Passou em todos testes')
+        console.log(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)
     }
     res.end()
 })
