@@ -10,6 +10,21 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.post('/usuario', (req, res) => {
+    const dadosUsuario = req.body;
+    const idUsuario = dadosUsuario.id;
+    const nomeUsuario = dadosUsuario.nomeCompleto;
+    const senhaUsuario = dadosUsuario.senhaUsuario;
+    const emailUsuario = dadosUsuario.emailUsuario;
+    const termosDeUso = 'on';
+    if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
+        //Mandar para o banco de dados
+        console.log('Passou em todos testes');
+        console.log(`id: ${idUsuario}, nome: ${nomeUsuario}, senha: ${senhaUsuario}, email: ${emailUsuario}`);
+    }
+    res.end()
+})
+
 app.post('/usuarios', (req, res) => {
     const dadosUsuario = req.body;
     const nomeUsuario = dadosUsuario.nomeCompleto;
