@@ -6,6 +6,7 @@ app.use(bodyParser.json({ extend: true }))
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -22,6 +23,13 @@ app.post('/usuario', (req, res) => {
         console.log('Passou em todos testes');
         console.log(`id: ${idUsuario}, nome: ${nomeUsuario}, senha: ${senhaUsuario}, email: ${emailUsuario}`);
     }
+    res.end()
+})
+
+app.delete('/usuario', (req, res) => {
+    const dadosUsuario = req.body;
+    const idUsuario = dadosUsuario.id;
+    console.log(`id: ${idUsuario}`)
     res.end()
 })
 
