@@ -1,7 +1,7 @@
 btnExcluirUsuario.addEventListener('click', function (e) {
     e.preventDefault();
 
-    // Enviando formulário para o back-end  
+    // Enviando dados para o back-end  
     const request = new XMLHttpRequest();
 
     let data = { id: 1 }
