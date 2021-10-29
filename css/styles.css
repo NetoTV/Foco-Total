@@ -63,7 +63,7 @@ button {
 }
 
 button:hover {
-    background-color: rgba(0, 136, 169, 0.8);
+    background-color: rgb(11, 107, 131);
 }
 
 #btnLogin {
@@ -185,8 +185,24 @@ form button{
 
 form button:hover{
     background: linear-gradient(
-        25deg, rgba(0, 136, 169, 1), #0ac89f);;
+        25deg, rgba(0, 136, 169, 1), #0ac89f);
 }
+
+form button{
+    background: linear-gradient(
+        25deg, #0ac89f, rgba(0, 136, 169, 1));
+}
+
+#btnExcluirUsuario{
+    margin-top: 1.5%;
+    background: linear-gradient(
+        25deg, #471d1d, #FF1A1A);
+}
+#btnExcluirUsuario:hover{
+    background: linear-gradient(
+        25deg, #ff1a1ab7, #471d1d);
+}
+
 @media (max-width: 991px){
     header  {
         padding: 10px 20px;
