@@ -16,8 +16,9 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 30px 15%;
-    position: fixed; 
-    top: 0; 
+    position: fixed;
+    top: 0;
+    transition: top 0.5s;
 }
 
 footer{
