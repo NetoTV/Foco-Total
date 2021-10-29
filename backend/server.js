@@ -11,6 +11,13 @@ app.use(function (req, res, next) {
     next();
 });
 
+// app.get('/usuario', (req, res) => {
+//     const dadosUsuario = req.body;
+//     const idUsuario = dadosUsuario.id;
+//     console.log(`id: ${idUsuario}`)
+//     res.end()
+// })
+
 app.post('/usuario', (req, res) => {
     const dadosUsuario = req.body;
     const idUsuario = dadosUsuario.id;
