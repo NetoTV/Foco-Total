@@ -155,9 +155,9 @@ form .user-details .input-box{
 }
 
 form button{
-    margin: 0 0;
-    height: 100%;
-    width: 100%;
+    margin-top: 20px;
+    margin-left: 30%;
+    width: 35%;
     outline: none;
     letter-spacing: 1px;
     font-size: 18px;
