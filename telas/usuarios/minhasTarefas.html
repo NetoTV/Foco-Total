@@ -44,7 +44,7 @@
                         <input type="text" placeholder="Digite o nome do seu evento" name="nomeEvento"
                             data-max-length="50" data-required data-only-letters style="width: 210%">
                     </div>
-                    <textarea placeholder="Sua mensagem..." name="descricaoEvento"></textarea>
+                    <textarea placeholder="Sua mensagem..." name="descricaoEvento" data-max-length="150"></textarea>
                 </div>
                 <button type="submit" id="btnCriarEvento">Criar</button>
                 <button type="delete" id="btnExcluirEvento">Excluir</button>
@@ -63,6 +63,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="../../js/js/evo-calendar.min.js"></script>
         <script src="../../js/outros/controleHeader.js"></script>
+        <script src="../../js/SistemaDeEventos/controleDeEventos.js"></script>
 
 
         <script>
