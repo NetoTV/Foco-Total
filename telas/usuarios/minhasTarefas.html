@@ -37,17 +37,17 @@
         <div id="calendar"></div>
         <div class="container" style="top: 20%; position: relative;">
             <div class="title">Criar um evento</div>
-            <form method="PUT" id="formEditarUsuario">
+            <form method="POST" id="formEventos">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Nome do Evento</span>
                         <input type="text" placeholder="Digite o nome do seu evento" name="nomeEvento"
                             data-max-length="50" data-required data-only-letters style="width: 210%">
                     </div>
-                    <textarea placeholder="Sua mensagem..."></textarea>
+                    <textarea placeholder="Sua mensagem..." name="descricaoEvento"></textarea>
                 </div>
-                <button type="submit" id="btnEditarUsuario">Criar</button>
-                <button type="delete" id="btnExcluirUsuario">Excluir</button>
+                <button type="submit" id="btnCriarEvento">Criar</button>
+                <button type="delete" id="btnExcluirEvento">Excluir</button>
             </form>
         </div>
         <p class="error-validation template"></p>
