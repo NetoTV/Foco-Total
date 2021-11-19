@@ -4,7 +4,7 @@ btnExcluirUsuario.addEventListener('click', function (e) {
     // Enviando dados para o back-end  
     const request = new XMLHttpRequest();
 
-    let data = { id: 1 }
+    let data = { id: 1 } // Aqui vai entrar o $Session do usuário
 
     data = JSON.stringify(data)
 

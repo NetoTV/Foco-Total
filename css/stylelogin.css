@@ -203,3 +203,9 @@ form button{
         display:none
     }
 }
+
+.error-validation{
+    color: #FF1A1A;
+    top:57px;
+    font-size: .8rem;
+}
