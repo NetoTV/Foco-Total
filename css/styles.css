@@ -10,6 +10,19 @@ li, a, button {
     text-decoration: none;
 }
 
+textarea{
+    padding: 10px;
+    resize: vertical;
+    display: block;
+    border-radius: 20px;
+    margin:10px auto;
+    max-width: 200%;
+    width: 100%;
+    height: 120px;
+    resize: none;
+    border-color: #0088a9;
+}
+
 header{
     display: flex;
     background: rgba(0,0,0,0.2);
@@ -34,6 +47,7 @@ header{
 footer{
     bottom: 0;
     position: fixed;
+    transition: bottom 0.5s;
 }
 
 .footerTexto{

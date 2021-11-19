@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../css/styles.css">
         <link rel="stylesheet" href="../../css/evo-calendar.min.css">
-        <link rel="stylesheet" type="text/css" href="../../css/evo-calendar.royal-navy.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../../css/evo-calendar.royal-navy.min.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap" rel="stylesheet">
@@ -16,13 +16,13 @@
     </head>
 
 
-    <body>
-        <header>
+    <body style="height:180vh;">
+        <header id="headerComControle">
             <img class="logo" src="../../images/logo.png" alt="logo" style="width: 10%;">
             <nav>
                 <ul class="nav__links">
                     <li><a href="#">Página Inicial</a></li>
-                    <li><a href="#">Minhas Tarefas</a></li>
+                    <li><a href="./minhasTarefas.html">Minhas Tarefas</a></li>
                     <li><a href="#">Feed</a></li>
                     <li><a href="#">Notificações</a></li>
                 </ul>
@@ -35,14 +35,24 @@
 
 
         <div id="calendar"></div>
-        
-        
-            
+        <div class="container" style="top: 20%; position: relative;">
+            <div class="title">Criar um evento</div>
+            <form method="PUT" id="formEditarUsuario">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Nome do Evento</span>
+                        <input type="text" placeholder="Digite o nome do seu evento" name="nomeEvento"
+                            data-max-length="50" data-required data-only-letters style="width: 210%">
+                    </div>
+                    <textarea placeholder="Sua mensagem..."></textarea>
+                </div>
+                <button type="submit" id="btnEditarUsuario">Criar</button>
+                <button type="delete" id="btnExcluirUsuario">Excluir</button>
+            </form>
+        </div>
+        <p class="error-validation template"></p>
 
-
-
-
-        <footer>
+        <footer id="footerComControle">
             <ul class="nav__links">
                 <li class="footerTexto">© 2021 Aplicativo React</li>
                 <li><a class="footerTexto" href="#">Privacidade</a></li>
@@ -52,48 +62,23 @@
         </footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="../../js/js/evo-calendar.min.js"></script>
-        
+        <script src="../../js/outros/controleHeader.js"></script>
+
 
         <script>
             // INICIA O CALENDARIO
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('#calendar').evoCalendar({
-                    settingName: settingValue
+                    // settingName: settingValue
                 })
             });
 
             $('#calendar').evoCalendar({
-                'theme': 'Royal Navy',
-                'language': 'pt',
-                //não sabemos se esta funcionando daqui pra baixo
-                //'format': 'dd MM, yyyy'
-                 //ate aqui
+                'theme': 'Royal Navy',
+                'language': 'pt'
             });
-            $('#calendar').evoCalendar('addCalendarEvent',[ {
-            id: 'teste1',
-             name: 'GRUPO 04 ',
-             description: 'KEITY EU TE ODEIO',
-             date: 'May 27, 2021',
-             type: 'birthday',  
+        </script>
 
-},
-{
-          id: 'CARMINO TA CHATAO',
-          name: 'CARMINO TA CHATISSIMO',
-          date: 'Nov 20, 2021',
-          type: 'event'
-     }
-]);
-           
-            
-           
-
-                
-
-
-            
-            </script>
-    
 
 
     </body>
