@@ -21,6 +21,16 @@ header{
     transition: top 0.5s;
 }
 
+#calendar{
+    width: 80%;
+    position: absolute;
+    top: 28%;
+    font-family: 'Shippori Antique', sans-serif;
+    
+    
+
+}
+
 footer{
     bottom: 0;
     position: fixed;
@@ -98,6 +108,7 @@ body{
     font-size: 25px;
     font-weight: 500;
     position: relative;
+    font-family: 'Shippori Antique', sans-serif;
 }
 
 .container .title::before {
@@ -229,4 +240,7 @@ form button{
     header nav{
         display:none
     }
+    
+
+
 }
