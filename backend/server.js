@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const mysql = require('mysql2')
 
 app.use(bodyParser.json({ extend: true }))
 
@@ -9,6 +10,13 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
+});
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'db_foco_total',
+    password: 'admin'
 });
 
 // app.get('/usuario', (req, res) => {
@@ -49,7 +57,17 @@ app.post('/usuarios', (req, res) => {
     if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
         //Mandar para o banco de dados
         console.log('Passou em todos testes')
-        console.log(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)
+        // console.log(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)
+        connection.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected!");
+            var sql = `INSERT INTO tb_usuarios (nomeUsuario, emailUsuario, senhaUsuario) VALUES ('${nomeUsuario}', '${emailUsuario}', '${senhaUsuario}')`;
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("Linha inserida com sucesso!");
+            });
+        });
+
     }
     res.end()
 })
