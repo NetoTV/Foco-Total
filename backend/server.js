@@ -2,8 +2,39 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const mysql = require('mysql2')
+const session = require('express-session');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 
 app.use(bodyParser.json({ extend: true }))
+
+const RedisStore = connectRedis(session)
+
+//Configure redis client
+const redisClient = redis.createClient({
+    host: 'localhost',
+    port: 6379
+})
+
+redisClient.on('error', function (err) {
+    console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+    console.log('Connected to redis successfully');
+});
+
+//Configure session middleware
+app.use(session({
+    store: new RedisStore({ client: redisClient }),
+    secret: 'secret$%^134',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // if true only transmit cookie over https
+        httpOnly: false, // if true prevent client side JS from reading the cookie 
+        maxAge: 1000 * 60 * 10 // session max age in miliseconds
+    }
+}))
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -25,6 +56,39 @@ const connection = mysql.createConnection({
 //     console.log(`id: ${idUsuario}`)
 //     res.end()
 // })
+
+app.post('/login', (req, res) => {
+    const sess = req.session;
+    const { emailUsuario, senhaUsuario } = req.body
+    sess.emailUsuario = emailUsuario
+    sess.senhaUsuario = senhaUsuario
+    console.log(sess.emailUsuario, sess.senhaUsuario)
+
+    if (validarDados('Pedro Henrique', sess.senhaUsuario, sess.emailUsuario, 'on')) {
+        //Mandar para o banco de dados
+        console.log('Passou em todos testes')
+        connection.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected!");
+            var sql = `select emailUsuario, senhaUsuario from tb_usuarios
+            where emailUsuario = '${sess.emailUsuario}' && senhaUsuario = '${sess.senhaUsuario}' ;`;
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                try {
+                    if (sess.emailUsuario === result[0].emailUsuario && sess.senhaUsuario === result[0].senhaUsuario) {
+                        console.log("Login realizado com sucesso!");
+                        res.end("success");
+                    }
+                } catch (e) {
+                    console.log('Dados inválidos!');
+                    res.end("invalidData");
+                    console.log(e);
+                }
+            });
+        });
+    }
+    res.end()
+});
 
 app.post('/usuario', (req, res) => {
     const dadosUsuario = req.body;

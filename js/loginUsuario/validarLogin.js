@@ -195,8 +195,8 @@ btnLogins.addEventListener('click', function (e) {
 
         data = JSON.stringify(data)
         console.log(data)
-        // request.open('POST', 'http://localhost:3000/usuarios');
-        // request.setRequestHeader("Content-Type", "application/json");
-        // request.send(data)
+        request.open('POST', 'http://localhost:3000/login');
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send(data)
     }
 })
