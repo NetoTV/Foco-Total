@@ -193,6 +193,14 @@ btnLogins.addEventListener('click', function (e) {
             senhaUsuario: document.querySelector('input[name="senhaUsuario"]').value,
         }
 
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                if (request.responseText === "sucess") {
+                    window.location.href = "/telas/usuarios/index.html";
+                }
+            }
+        }
+
         data = JSON.stringify(data)
         console.log(data)
         request.open('POST', 'http://localhost:3000/login');

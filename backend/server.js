@@ -77,7 +77,7 @@ app.post('/login', (req, res) => {
                 try {
                     if (sess.emailUsuario === result[0].emailUsuario && sess.senhaUsuario === result[0].senhaUsuario) {
                         console.log("Login realizado com sucesso!");
-                        res.end("success");
+                        res.end("sucess")
                     }
                 } catch (e) {
                     console.log('Dados inválidos!');
@@ -87,7 +87,11 @@ app.post('/login', (req, res) => {
             });
         });
     }
-    res.end()
+    try {
+        res.end("error");
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 app.post('/usuario', (req, res) => {
