@@ -30,7 +30,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 30px 15%;
-  position: fixed;
+  position: absolute;
   top: 0;
   transition: top 0.5s;
 }
@@ -251,81 +251,72 @@ form button {
 }
 
 div.container {
-    height: 100%;
-    background: -webkit-linear-gradient(top, #088fad 20%, #00d5ff 100%);
+  background: -webkit-linear-gradient(top, #088fad 20%, #00d5ff 100%);
 }
 
-
-
-
-
-.containerHome{
-    width: 80%;
-    height: 35%;
-    margin-left: 5%;
-    margin-bottom: 10%;
-    
-
+.containerHome {
+  width: 80%;
+  height: 35%;
+  margin-left: 5%;
+  margin-bottom: 10%;
 }
 
-div.mainHome {border-width: medium;
-    border-style: solid;
-    
-    width: 40%;
-    display: inline-block;
-    
-    font-size: 1vw;
-    text-align: center;
-    padding: 5vw 0vw 5vw 0vw;
-    
-    min-width:40vw;
-    margin-left: 20px;
-    margin-top: 5px;
+div.mainHome {
+  border-width: medium;
+  border-top: solid;
+
+  width: 40%;
+  display: inline-block;
+
+  font-size: 1vw;
+  text-align: center;
+
+  min-width: 40vw;
+  margin-left: 20px;
+  margin-top: 5px;
 }
 
+div.saoJudas {
+  border-width: medium;
+  border-top: solid;
 
+  width: 30%;
 
+  display: inline-block;
+  font-size: 1vw;
+  text-align: center;
 
-div.saoJudas {border-width: medium;
-    border-style: solid;
-    width: 30%;
-    display: inline-block;
-    font-size: 1vw;
-    text-align: center;
-    padding: 5vw 0vw 5vw 0vw;
-    min-width:30vw;
-    margin-left: 20px;
-    margin-top: 5px;    
+  min-width: 30vw;
+  margin-left: 20px;
+  margin-top: 5px;
 }
 
-div.objetivo{border-width: medium;
-    border-style: solid;
-    
-    width: 40%;
-    
-    display: inline-block;
-    margin-right: 0vw;
-    font-size: 1vw;
-    text-align: center;
-    padding: 5vw 0vw 5vw 0vw;
-    min-width:40vw;
-    margin-left: 20px;
-    margin-top: 20px;
-    
-    
+div.objetivo {
+  border-width: medium;
+  border-top: solid;
+
+  width: 40%;
+
+  display: inline-block;
+  margin-right: 0vw;
+  font-size: 1vw;
+  text-align: center;
+
+  min-width: 40vw;
+  margin-left: 20px;
 }
 
+div.sobreNos {
+  border-width: medium;
+  border-top: solid;
+  width: 30%;
 
-div.sobreNos{border-width: medium;
-    border-style: solid;  
-    width: 30%;
-    display: inline-block;
-    margin-right: 0vw;
-    font-size: 1vw;
-    text-align: center;
-    padding: 5vw 0vw 5vw 0vw;
-    min-width:30vw;
-    margin-left: 20px;  
-    
+  display: inline-block;
+  margin-right: 0vw;
+  font-size: 1vw;
+  text-align: center;
+
+  min-width: 30vw;
+  margin-left: 20px;
+  text-align-last: initial;
 }
-
