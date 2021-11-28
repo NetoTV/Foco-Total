@@ -1,85 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <link rel="stylesheet" href="../../css/evo-calendar.min.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../css/evo-calendar.royal-navy.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap"
+      rel="stylesheet"
+    />
+    <title>Aplicativo React</title>
+  </head>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../css/styles.css">
-        <link rel="stylesheet" href="../../css/evo-calendar.min.css">
-        <link rel="stylesheet" type="text/css" href="../../css/evo-calendar.royal-navy.min.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap" rel="stylesheet">
-        <title>Aplicativo React</title>
-    </head>
+  <body style="height: 180vh">
+    <header id="headerComControle">
+      <img
+        class="logo"
+        src="../../images/logo.png"
+        alt="logo"
+        style="width: 10%"
+      />
+      <nav>
+        <ul class="nav__links">
+          <li><a href="./index.html">Página Inicial</a></li>
+          <li><a href="./minhasTarefas.html">Minhas Tarefas</a></li>
+          <li><a href="#">Feed</a></li>
+          <li><a href="#">Notificações</a></li>
+        </ul>
+      </nav>
+      <a class="cta">
+        <button
+          id="btnLogin"
+          onclick="window.location.href='./loginUsuario.html'"
+        >
+          Login
+        </button>
+        <button onclick="window.location.href='./cadastroDeUsuarios.html'">
+          Cadastrar-se
+        </button>
+      </a>
+    </header>
 
-
-    <body style="height:180vh;">
-        <header id="headerComControle">
-            <img class="logo" src="../../images/logo.png" alt="logo" style="width: 10%;">
-            <nav>
-                <ul class="nav__links">
-                    <li><a href="./index.html">Página Inicial</a></li>
-                    <li><a href="./minhasTarefas.html">Minhas Tarefas</a></li>
-                    <li><a href="#">Feed</a></li>
-                    <li><a href="#">Notificações</a></li>
-                </ul>
-            </nav>
-            <a class="cta">
-                <button id="btnLogin" onclick="window.location.href='./loginUsuario.html'">Login</button>
-                <button onclick="window.location.href='./cadastroDeUsuarios.html'">Cadastrar-se</button>
-            </a>
-        </header>
-
-
-        <div id="calendar"></div>
-        <div class="container" style="top: 20%; position: relative;">
-            <div class="title">Criar um evento</div>
-            <form method="POST" id="formEventos">
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Nome do Evento</span>
-                        <input type="text" placeholder="Digite o nome do seu evento" name="nomeEvento"
-                            data-max-length="50" data-required data-only-letters style="width: 210%">
-                    </div>
-                    <textarea placeholder="Sua mensagem..." name="descricaoEvento" data-max-length="150"></textarea>
-                </div>
-                <button type="submit" id="btnCriarEvento">Criar</button>
-                <button type="delete" id="btnExcluirEvento">Excluir</button>
-            </form>
+    <div id="calendar"></div>
+    <div class="container" style="top: 20%; position: relative">
+      <div class="title">Criar um evento</div>
+      <form method="POST" id="formEventos">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Nome do Evento</span>
+            <input
+              type="text"
+              placeholder="Digite o nome do seu evento"
+              name="nomeEvento"
+              data-max-length="50"
+              data-required
+              data-only-letters
+              style="width: 210%"
+            />
+          </div>
+          <textarea
+            placeholder="Sua mensagem..."
+            name="descricaoEvento"
+            data-max-length="150"
+          ></textarea>
         </div>
-        <p class="error-validation template"></p>
+        <button type="submit" id="btnCriarEvento">Criar</button>
+        <button type="delete" id="btnExcluirEvento">Excluir</button>
+      </form>
+    </div>
+    <p class="error-validation template"></p>
 
-        <footer id="footerComControle">
-            <ul class="nav__links">
-                <li class="footerTexto">© 2021 Aplicativo React</li>
-                <li><a class="footerTexto" href="#">Privacidade</a></li>
-                <li><a class="footerTexto" href="#">Termo de Uso</a></li>
-                <li><a class="footerTexto" href="#">Fale Conosco</a></li>
-            </ul>
-        </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="../../js/js/evo-calendar.min.js"></script>
-        <script src="../../js/outros/controleHeader.js"></script>
-        <script src="../../js/SistemaDeEventos/controleDeEventos.js"></script>
+    <footer>
+      <ul class="nav__links">
+        <li class="footerTexto">© 2021 Aplicativo React</li>
+        <li><a class="footerTexto" href="#">Privacidade</a></li>
+        <li><a class="footerTexto" href="#">Termo de Uso</a></li>
+        <li><a class="footerTexto" href="faleconosco.html">Fale Conosco</a></li>
+      </ul>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../../js/js/evo-calendar.min.js"></script>
+    <script src="../../js/outros/controleHeader.js"></script>
+    <script src="../../js/SistemaDeEventos/controleDeEventos.js"></script>
 
+    <script>
+      // INICIA O CALENDARIO
+      $(document).ready(function () {
+        $("#calendar").evoCalendar({
+          // settingName: settingValue
+        });
+      });
 
-        <script>
-            // INICIA O CALENDARIO
-            $(document).ready(function () {
-                $('#calendar').evoCalendar({
-                    // settingName: settingValue
-                })
-            });
-
-            $('#calendar').evoCalendar({
-                'theme': 'Royal Navy',
-                'language': 'pt'
-            });
-        </script>
-
-
-
-    </body>
+      $("#calendar").evoCalendar({
+        theme: "Royal Navy",
+        language: "pt",
+      });
+    </script>
+  </body>
+</html>

@@ -1,106 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../css/styleHome.css" />
+    <title>Aplicativo React</title>
+  </head>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../css/styleHome.css">
-        <title>Aplicativo React</title>
-    </head>
+  <body style="height: 100vh">
+    <header id="headerComControle">
+      <img
+        class="logo"
+        src="../../images/logo.png"
+        alt="logo"
+        style="width: 10%"
+      />
+      <nav>
+        <ul class="nav__links">
+          <li><a href="./index.html">Página Inicial</a></li>
+          <li><a href="./minhasTarefas.html">Minhas Tarefas</a></li>
+          <li><a href="#">Feed</a></li>
+          <li><a href="#">Notificações</a></li>
+        </ul>
+      </nav>
+      <a class="cta">
+        <button
+          id="btnLogin"
+          onclick="window.location.href='./loginUsuario.html'"
+        >
+          Login
+        </button>
+        <button onclick="window.location.href='./cadastroDeUsuarios.html'">
+          Cadastrar-se
+        </button>
+      </a>
+    </header>
 
-    <body style="height: 100vh;">
+    <div class="containerHome">
+      <div class="mainHome">
+        <h1>Mantenha o FOCO TOTAL!</h1>
+        <p>
+          Utilize já nossa ferramenta, para organizar sua rotina e suas
+          tarefas,e deixe de se preocupar em ficar guardando tudo na mente!
+        </p>
 
-        <header id="headerComControle">
-            <img class="logo" src="../../images/logo.png" alt="logo" style="width: 10%;">
-            <nav>
-                <ul class="nav__links">
-                    <li><a href="./index.html">Página Inicial</a></li>
-                    <li><a href="./minhasTarefas.html">Minhas Tarefas</a></li>
-                    <li><a href="#">Feed</a></li>
-                    <li><a href="#">Notificações</a></li>
-                </ul>
-            </nav>
-            <a class="cta">
-                <button id="btnLogin" onclick="window.location.href='./loginUsuario.html'">Login</button>
-                <button onclick="window.location.href='./cadastroDeUsuarios.html'">Cadastrar-se</button>
-            </a>
-        </header>
+        <button>ACESSE JÁ!</button>
+      </div>
 
+      <div class="saoJudas">
+        <h1>
+          <img
+            class="logo"
+            src="../../images/logo-sao-judas.png"
+            alt="logo"
+            style="width: 40%"
+          />
+        </h1>
+        <p>
+          A universidade São Judas, tem o programa institucional mais fudido que
+          eu já vi na minha vida, acabaram com meu psicologico e minha vontade
+          de aprender qualquer coisa relacionada a código. Fica aqui o meu
+          relato e descontentamento com as aulas. Se este projeto esta hoje de
+          pé e funcionando é unica e exclusivamente por conta dos integrantes
+          deste grupo, principalmente o Paulo, fica aqui minha mençao honrosa a
+          sua pessoa!
+        </p>
+      </div>
 
-        <div class="containerHome">
-            <div class="mainHome">
-                <h1>Mantenha o FOCO TOTAL!</h1>
-                <p>Utilize já nossa ferramenta, para organizar sua rotina e suas tarefas,e deixe de se preocupar em
-                    ficar guardando tudo na mente! </p>
+      <div class="objetivo">
+        <h1>Objetivo</h1>
+        <p>
+          A nossa aplicação tem como objetivo ajudar as pessoas a manter o foco
+          nessas tarefas, de modo a não perder o controle sobre elas. Oferecemos
+          funções como lembretes, e agenda para auxiliar nisto.
+        </p>
+      </div>
 
-                <button>ACESSE JÁ!</button>
-            </div>
+      <div class="sobreNos">
+        <h1>Sobre Nós</h1>
+        <p>
+          Somos um grupo de alunos da unidade Santana, elaboramos esta aplicação
+          para desenvolver e aprimorar os conhecimentos aprendidos em aula,
+          utilizando de conceitos de desenvolvimento web, e sistemas
+          distribuídos. Foram utilizados NodeJS, JavaScript, HTML, CSS e MySQL.
+        </p>
+      </div>
+    </div>
 
-            <div class="saoJudas">
-                <h1><img class="logo" src="../../images/logo-sao-judas.png" alt="logo" style="width: 40%;"></h1>
-                <p>A universidade São Judas, tem o programa institucional mais fudido que eu já vi na minha vida,
-                    acabaram com meu psicologico e minha vontade de aprender qualquer coisa relacionada a código. Fica
-                    aqui o meu relato e descontentamento com as aulas. Se este projeto esta hoje de pé e funcionando é
-                    unica e exclusivamente por conta dos integrantes deste grupo, principalmente o Paulo, fica aqui
-                    minha mençao honrosa a sua pessoa!
-
-                </p>
-            </div>
-
-
-
-
-            <div class="objetivo">
-                <h1>Objetivo</h1>
-                <p>A nossa aplicação tem como objetivo ajudar as pessoas a manter o foco
-                    nessas tarefas, de modo a não perder o controle sobre elas. Oferecemos funções como lembretes, e
-                    agenda para auxiliar nisto.</p>
-
-            </div>
-
-            <div class="sobreNos">
-                <h1>Sobre Nós</h1>
-                <p> Somos um grupo de alunos da unidade Santana, elaboramos esta aplicação para desenvolver e aprimorar
-                    os conhecimentos aprendidos em aula, utilizando de conceitos de desenvolvimento web, e sistemas
-                    distribuídos. Foram utilizados NodeJS, JavaScript, HTML, CSS e MySQL.
-                </p>
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-        <footer>
-            <ul class="nav__links">
-                <li class="footerTexto">© 2021 Aplicativo React</li>
-                <li><a class="footerTexto" href="#">Privacidade</a></li>
-                <li><a class="footerTexto" href="#">Termo de Uso</a></li>
-                <li><a class="footerTexto" href="#">Fale Conosco</a></li>
-            </ul>
-        </footer>
-    </body>
-    <!-- <script src="../../js/outros/controleHeader.js"></script> -->
-
+    <footer>
+      <ul class="nav__links">
+        <li class="footerTexto">© 2021 Aplicativo React</li>
+        <li><a class="footerTexto" href="#">Privacidade</a></li>
+        <li><a class="footerTexto" href="#">Termo de Uso</a></li>
+        <li><a class="footerTexto" href="faleconosco.html">Fale Conosco</a></li>
+      </ul>
+    </footer>
+  </body>
+  <!-- <script src="../../js/outros/controleHeader.js"></script> -->
 </html>
