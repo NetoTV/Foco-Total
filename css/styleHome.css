@@ -6,10 +6,12 @@ a,
 button {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 20px;
   color: #edf0f1;
   text-decoration: none;
 }
+
+html
 
 textarea {
   padding: 10px;
@@ -33,13 +35,6 @@ header {
   position: absolute;
   top: 0;
   transition: top 0.5s;
-}
-
-#calendar {
-  width: 80%;
-  position: absolute;
-  top: 28%;
-  font-family: "Shippori Antique", sans-serif;
 }
 
 footer {
@@ -98,28 +93,13 @@ button:hover {
 
 body {
   display: flex;
-  height: 100vh;
+  height: 100%;
   justify-content: center;
   align-items: center;
   padding: 10px;
   background: linear-gradient(135deg, rgba(0, 136, 169, 1), #edf0f1);
 }
 
-.container {
-  max-width: 900px;
-  width: 100%;
-  background: #fff;
-  padding: 25px 30px;
-  border-radius: 5px;
-  font-family: "Poppins", sans-serif;
-}
-
-.container .title {
-  font-size: 25px;
-  font-weight: 500;
-  position: relative;
-  font-family: "Shippori Antique", sans-serif;
-}
 
 .container .title::before {
   content: "";
@@ -129,13 +109,6 @@ body {
   height: 3px;
   width: 100%;
   background: linear-gradient(135deg, rgba(0, 136, 169, 1), #edf0f1);
-}
-
-.container form .user-details {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 20px 0 12px 0;
 }
 
 #termoUso {
@@ -155,72 +128,9 @@ body {
   text-decoration: underline;
 }
 
-form .user-details .input-box {
-  margin-bottom: 15px;
-  width: calc(100% / 2 - 20px);
-}
-
-.user-details .input-box .details {
-  display: block;
-  font-weight: 500;
-  margin-bottom: 5px;
-}
-
-.user-details .input-box input {
-  height: 45px;
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding-left: 15px;
-  font-size: 16px;
-  border-bottom-width: 2px;
-  transition: all 0.3s ease;
-}
-
-.user-details .input-box input:focus,
-.user-details .input-box input:valid {
-  border-color: #0088a9;
-}
-
-.error-validation {
-  color: #ff1a1a;
-  top: 57px;
-  font-size: 0.8rem;
-}
 
 .template {
   display: none;
-}
-
-form button {
-  margin: 0 0;
-  height: 100%;
-  width: 100%;
-  outline: none;
-  letter-spacing: 1px;
-  font-size: 18px;
-  font-weight: 500;
-  border-radius: 50px;
-  border: none;
-}
-
-form button:hover {
-  background: linear-gradient(25deg, rgba(0, 136, 169, 1), #0ac89f);
-}
-
-form button {
-  background: linear-gradient(25deg, #0ac89f, rgba(0, 136, 169, 1));
-}
-
-#btnExcluirUsuario,
-#btnExcluirEvento {
-  margin-top: 1.5%;
-  background: linear-gradient(25deg, #471d1d, #ff1a1a);
-}
-#btnExcluirUsuario:hover,
-#btnExcluirEvento:hover {
-  background: linear-gradient(25deg, #ff1a1ab7, #471d1d);
 }
 
 @media (max-width: 991px) {
@@ -256,67 +166,44 @@ div.container {
 
 .containerHome {
   width: 80%;
-  height: 35%;
   margin-left: 5%;
   margin-bottom: 10%;
 }
 
 div.mainHome {
-  border-width: medium;
-  border-top: solid;
-
-  width: 40%;
-  display: inline-block;
-
-  font-size: 1vw;
-  text-align: center;
-
-  min-width: 40vw;
-  margin-left: 20px;
-  margin-top: 5px;
+  position: absolute;
+  top: 30%;
 }
 
-div.saoJudas {
-  border-width: medium;
-  border-top: solid;
-
-  width: 30%;
-
-  display: inline-block;
-  font-size: 1vw;
-  text-align: center;
-
-  min-width: 30vw;
-  margin-left: 20px;
-  margin-top: 5px;
+div.mainHome h1 {
+  font-family: Verdana, sans-serif;
+  font-size: 30px;
+  max-width: 600px;
+  text-align: justify;
 }
 
-div.objetivo {
-  border-width: medium;
-  border-top: solid;
-
-  width: 40%;
-
-  display: inline-block;
-  margin-right: 0vw;
-  font-size: 1vw;
-  text-align: center;
-
-  min-width: 40vw;
-  margin-left: 20px;
+div.mainHome p {
+  margin:20px 0;
+  color: black;
+  max-width: 550px;
+  text-align: left;
+  font-family: Verdana, sans-serif;
+  font-weight: bolder;
+  font-size: 16px;
 }
 
-div.sobreNos {
-  border-width: medium;
-  border-top: solid;
-  width: 30%;
-
-  display: inline-block;
-  margin-right: 0vw;
-  font-size: 1vw;
-  text-align: center;
-
-  min-width: 30vw;
-  margin-left: 20px;
-  text-align-last: initial;
+div.mainHome button {
+  margin-left: 0px;
+  margin-top: 10px;
+  padding: 11px 33px;
 }
+
+section img{
+  width:70%;
+  height: auto;
+  align-items: right;
+  position: absolute;
+  left: 30%;
+  top: 30%;
+}
+
