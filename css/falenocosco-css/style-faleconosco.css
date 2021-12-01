@@ -43,8 +43,8 @@ header {
 }
 
 footer {
+  position: absolute;
   bottom: 0;
-  position: fixed;
   transition: bottom 0.5s;
 }
 
