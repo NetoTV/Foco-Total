@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,25 +12,17 @@
 
   <body>
     <header>
-      <img
-        class="logo"
-        src="../../images/logo.png"
-        alt="logo"
-        style="width: 10%"
-      />
+      <img class="logo" src="../../images/logo.png" alt="logo" style="width: 10%" />
       <nav>
         <ul class="nav__links">
           <li><a href="./index.html">Página Inicial</a></li>
           <li><a href="./minhasTarefas.html">Minhas Tarefas</a></li>
-          <li><a href="#">Feed</a></li>
+          <li><a href="./faleconosco.html">Fale Conosco</a></li>
           <li><a href="#">Notificações</a></li>
         </ul>
       </nav>
       <a class="cta">
-        <button
-          id="btnLogin"
-          onclick="window.location.href='./loginUsuario.html'"
-        >
+        <button id="btnLogin" onclick="window.location.href='./loginUsuario.html'">
           Login
         </button>
         <button onclick="window.location.href='./cadastroDeUsuarios.html'">
@@ -43,50 +36,26 @@
         <div class="user-details">
           <div class="input-box">
             <span class="details">Nome Completo</span>
-            <input
-              type="text"
-              placeholder="Digite seu nome"
-              name="nomeCompleto"
-              data-max-length="50"
-              data-required
-              data-only-letters
-            />
+            <input type="text" placeholder="Digite seu nome" name="nomeCompleto" data-max-length="50" data-required
+              data-only-letters />
           </div>
           <div class="input-box">
             <span class="details">Email</span>
-            <input
-              type="email"
-              placeholder="Digite seu email"
-              name="emailUsuario"
-              data-min-length="3"
-              data-required
-              data-email-validate
-            />
+            <input type="email" placeholder="Digite seu email" name="emailUsuario" data-min-length="3" data-required
+              data-email-validate />
           </div>
           <div class="input-box">
             <span class="details">Senha</span>
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              name="senhaUsuario"
-              data-required
-              data-password-validate
-            />
+            <input type="password" placeholder="Digite sua senha" name="senhaUsuario" data-required
+              data-password-validate />
           </div>
           <div class="input-box">
             <span class="details">Confirmar senha</span>
-            <input
-              type="password"
-              placeholder="Digite sua senha novamente"
-              name="senhaConfirmar"
-              data-equal="senhaUsuario"
-              data-required
-            />
+            <input type="password" placeholder="Digite sua senha novamente" name="senhaConfirmar"
+              data-equal="senhaUsuario" data-required />
           </div>
           <div id="termoUso">
-            <label for="agreement"
-              >Eu li e aceito os <a href="#">Termos de Uso</a>:</label
-            >
+            <label for="agreement">Eu li e aceito os <a href="#">Termos de Uso</a>:</label>
             <input type="checkbox" name="termosDeUso" style="cursor: pointer" />
           </div>
         </div>
@@ -96,12 +65,10 @@
     <p class="error-validation template"></p>
     <footer>
       <ul class="nav__links">
-        <li class="footerTexto">© 2021 Aplicativo React</li>
-        <li><a class="footerTexto" href="#">Privacidade</a></li>
-        <li><a class="footerTexto" href="#">Termo de Uso</a></li>
-        <li><a class="footerTexto" href="faleconosco.html">Fale Conosco</a></li>
+        <li class="footerTexto">© 2021 Aplicativo</li>
       </ul>
     </footer>
   </body>
   <script src="../../js/cadastroDeUsuarios/validarCadastro.js"></script>
+
 </html>

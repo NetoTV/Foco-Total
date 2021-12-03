@@ -50,19 +50,26 @@ const connection = mysql.createConnection({
     password: 'admin'
 });
 
-// app.get('/usuario', (req, res) => {
-//     const dadosUsuario = req.body;
-//     const idUsuario = dadosUsuario.id;
-//     console.log(`id: ${idUsuario}`)
-//     res.end()
-// })
+app.get('/verificarLogin', (req, res) => {
+    const sess = req.session;
+    console.log('não aconteceu nada')
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        console.log('entrando no if')
+        if (sess.emailUsuario) {
+            console.log('logado')
+            res.end('sucess')
+        } else {
+            console.log('deslogado')
+            res.end('unlogged')
+        }
+    }
+})
 
 app.post('/login', (req, res) => {
     const sess = req.session;
     const { emailUsuario, senhaUsuario } = req.body
     sess.emailUsuario = emailUsuario
     sess.senhaUsuario = senhaUsuario
-    console.log(sess.emailUsuario, sess.senhaUsuario)
 
     if (validarDados('Pedro Henrique', sess.senhaUsuario, sess.emailUsuario, 'on')) {
         //Mandar para o banco de dados
@@ -86,11 +93,6 @@ app.post('/login', (req, res) => {
                 }
             });
         });
-    }
-    try {
-        res.end("error");
-    } catch (e) {
-        console.log(e);
     }
 });
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,25 +12,17 @@
 
   <body>
     <header>
-      <img
-        class="logo"
-        src="../../images/logo.png"
-        alt="logo"
-        style="width: 10%"
-      />
+      <img class="logo" src="../../images/logo.png" alt="logo" style="width: 10%" />
       <nav>
         <ul class="nav__links">
           <li><a href="./index.html">Página Inicial</a></li>
           <li><a href="./minhasTarefas.html">Minhas Tarefas</a></li>
-          <li><a href="#">Feed</a></li>
+          <li><a href="./faleconosco.html">Fale Conosco</a></li>
           <li><a href="#">Notificações</a></li>
         </ul>
       </nav>
       <a class="cta">
-        <button
-          id="btnLogin"
-          onclick="window.location.href='./loginUsuario.html'"
-        >
+        <button id="btnLogin" onclick="window.location.href='./loginUsuario.html'">
           Login
         </button>
         <button onclick="window.location.href='./cadastroDeUsuarios.html'">
@@ -44,25 +37,14 @@
         <div class="user-details">
           <div class="input-box">
             <span class="details">E-mail: </span>
-            <input
-              type="text"
-              placeholder="Digite seu e-mail"
-              name="emailUsuario"
-              data-min-length="3"
-              data-required
-              data-email-validate
-            />
+            <input type="text" placeholder="Digite seu e-mail" name="emailUsuario" data-min-length="3" data-required
+              data-email-validate />
           </div>
           <div class="input-box"></div>
           <div class="input-box">
             <span class="details">Senha: </span>
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              name="senhaUsuario"
-              data-required
-              data-password-validate
-            />
+            <input type="password" placeholder="Digite sua senha" name="senhaUsuario" data-required
+              data-password-validate />
           </div>
 
           <!-- <div id="lembreme">
@@ -77,12 +59,10 @@
     <p class="error-validation template"></p>
     <footer>
       <ul class="nav__links">
-        <li class="footerTexto">© 2021 Aplicativo React</li>
-        <li><a class="footerTexto" href="#">Privacidade</a></li>
-        <li><a class="footerTexto" href="#">Termo de Uso</a></li>
-        <li><a class="footerTexto" href="faleconosco.html">Fale Conosco</a></li>
+        <li class="footerTexto">© 2021 Aplicativo</li>
       </ul>
     </footer>
   </body>
   <script src="../../js/loginUsuario/validarLogin.js"></script>
+
 </html>
