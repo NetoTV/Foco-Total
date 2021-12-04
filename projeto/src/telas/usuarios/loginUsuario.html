@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styleLogin" />
+    <title>Aplicativo React</title>
+  </head>
+
+  <body>
+    <header>
+      <img class="logo" src="/img/logo" alt="logo" style="width: 10%" />
+      <nav>
+        <ul class="nav__links">
+          <li><a href="/">Página Inicial</a></li>
+          <li><a href="/minhasTarefas">Minhas Tarefas</a></li>
+          <li><a href="/faleconosco">Fale Conosco</a></li>
+          <li><a href="#">Notificações</a></li>
+        </ul>
+      </nav>
+      <a class="cta">
+        <button id="btnLogin" onclick="window.location.href='/login'">
+          Login
+        </button>
+        <button onclick="window.location.href='/cadastrar'">
+          Cadastrar-se
+        </button>
+      </a>
+    </header>
+
+    <div class="container">
+      <div class="title">Login</div>
+      <form method="POST" id="formLoginUsuario">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">E-mail: </span>
+            <input type="text" placeholder="Digite seu e-mail" name="emailUsuario" data-min-length="3" data-required
+              data-email-validate />
+          </div>
+          <div class="input-box"></div>
+          <div class="input-box">
+            <span class="details">Senha: </span>
+            <input type="password" placeholder="Digite sua senha" name="senhaUsuario" data-required
+              data-password-validate />
+          </div>
+
+          <!-- <div id="lembreme">
+                        <input type="checkbox" name="lembrarUsuario">
+                        <label for="agreement">Lembre-me</label>
+                    </div> -->
+
+          <button type="submit" id="btnLogins">Entrar</button>
+        </div>
+      </form>
+    </div>
+    <p class="error-validation template"></p>
+    <footer>
+      <ul class="nav__links">
+        <li class="footerTexto">© 2021 Aplicativo</li>
+      </ul>
+    </footer>
+  </body>
+  <script src="/js/validarLogin"></script>
+
+</html>

@@ -1,0 +1,365 @@
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const mysql = require('mysql2')
+const session = require('express-session');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
+
+app.use(bodyParser.json({ extend: true }))
+
+const RedisStore = connectRedis(session)
+
+//Configure redis client
+const redisClient = redis.createClient({
+    host: 'localhost',
+    port: 6379
+})
+
+redisClient.on('error', function (err) {
+    console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+    console.log('Connected to redis successfully');
+});
+
+//Configure session middleware
+app.use(session({
+    store: new RedisStore({ client: redisClient }),
+    secret: 'secret$%^134',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // if true only transmit cookie over https
+        httpOnly: false, // if true prevent client side JS from reading the cookie 
+        maxAge: 1000 * 60 * 10 // session max age in miliseconds
+    }
+}))
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'db_foco_total',
+    password: 'admin'
+});
+
+// app.get('/', (req, res) => {
+//     const sess = req.session;
+//     console.log('não aconteceu nada')
+//     if (sess.emailUsuario && sess.senhaUsuario) {
+//         console.log('entrando no if')
+//         if (sess.emailUsuario) {
+//             res.write(`<h1>Welcome ${sess.emailUsuario} </h1><br>`)
+//             console.log('logado')
+//             res.end('sucess')
+//         }
+//     } else {
+//         res.sendFile(__dirname + "/src/telas/usuarios/loginUsuario.html")
+//     }
+// })
+
+app.get('/', (req, res) => {
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            console.log(`${sess.emailUsuario}`)
+            res.sendFile(__dirname + "/src/telas/usuarios/index.html")
+        }
+    } else {
+        res.sendFile(__dirname + "/src/telas/usuarios/index.html")
+    }
+})
+
+// GET DE STYLES
+app.get('/css/styleHome', (req, res) => {
+    res.sendFile(__dirname + "/src/css/styleHome.css")
+})
+
+app.get('/css/styleLogin', (req, res) => {
+    res.sendFile(__dirname + "/src/css/stylelogin.css")
+})
+
+app.get('/css/styles', (req, res) => {
+    res.sendFile(__dirname + "/src/css/styles.css")
+})
+// GET DE IMAGES
+
+app.get('/img/logo', (req, res) => {
+    res.sendFile(__dirname + "/src/images/logo.png")
+})
+
+app.get('/img/homeImage', (req, res) => {
+    res.sendFile(__dirname + "/src/images/homeImage.png")
+})
+
+// GET DE LOGIN
+
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + "/src/telas/usuarios/loginUsuario.html")
+})
+
+app.get('/js/validarLogin', (req, res) => {
+    res.sendFile(__dirname + "/src/js/loginUsuario/validarLogin.js")
+})
+
+// GET CADASTRAR-SE
+
+app.get('/cadastrar', (req, res) => {
+    res.sendFile(__dirname + "/src/telas/usuarios/cadastroDeUsuarios.html")
+})
+
+app.get('/js/validarCadastro', (req, res) => {
+    res.sendFile(__dirname + "/src/js/cadastroDeUsuarios/validarCadastro.js")
+})
+
+// GET EDITAR USUARIO
+
+app.get('/editarUsuario', (req, res) => {
+    res.sendFile(__dirname + "/src/telas/usuarios/editarUsuario.html")
+})
+
+app.get('/js/validarUsuario', (req, res) => {
+    res.sendFile(__dirname + "/src/js/editarUsuario/validarUsuario.js")
+})
+
+app.get('/js/excluirUsuario', (req, res) => {
+    res.sendFile(__dirname + "/src/js/excluirUsuario/excluirUsuario.js")
+})
+
+// GET MINHAS TAREFAS
+
+app.get('/minhasTarefas', (req, res) => {
+    res.sendFile(__dirname + "/src/telas/usuarios/minhasTarefas.html")
+})
+
+// GET FALE CONOSCO
+
+app.get('/faleConosco', (req, res) => {
+    res.sendFile(__dirname + "/src/telas/usuarios/faleconosco.html")
+})
+
+// GET CALENDARIO
+
+app.get('/css/evo-calendar', (req, res) => {
+    res.sendFile(__dirname + "/src/css/evo-calendar.min.css")
+})
+
+app.get('/css/evo-calendar-royal-navy', (req, res) => {
+    res.sendFile(__dirname + "/src/css/evo-calendar.royal-navy.min.css")
+})
+
+app.get('/js/evo-calendar', (req, res) => {
+    res.sendFile(__dirname + "/src/js/calendario/js/evo-calendar.min.js")
+})
+
+app.get('/js/controleDeEventos', (req, res) => {
+    res.sendFile(__dirname + "/src/js/SistemaDeEventos/controleDeEventos.js")
+})
+
+// OUTROS
+
+app.get('/js/controleHeader', (req, res) => {
+    res.sendFile(__dirname + "/src/js/outros/controleHeader.js")
+})
+
+app.get('/js/verificarLogado', (req, res) => {
+    res.sendFile(__dirname + "/src/js/loginUsuario/verificarLogado.js")
+})
+
+app.post('/login', (req, res) => {
+    const sess = req.session;
+    const { emailUsuario, senhaUsuario } = req.body
+    console.log(req.body)
+    console.log(emailUsuario, senhaUsuario)
+
+    if (validarDados('Pedro Henrique', senhaUsuario, emailUsuario, 'on')) {
+        //Mandar para o banco de dados
+        console.log('Passou em todos testes')
+        connection.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected!");
+            var sql = `select emailUsuario, senhaUsuario from tb_usuarios
+            where emailUsuario = '${emailUsuario}' && senhaUsuario = '${senhaUsuario}' ;`;
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                try {
+                    if (emailUsuario === result[0].emailUsuario && senhaUsuario === result[0].senhaUsuario) {
+                        console.log("Login realizado com sucesso!");
+                        sess.emailUsuario = emailUsuario
+                        sess.senhaUsuario = senhaUsuario
+                        res.end('sucess')
+                    }
+                } catch (e) {
+                    console.log('Dados inválidos!');
+                    res.end();
+                    console.log(e);
+                }
+            });
+        });
+    }
+});
+
+app.post('/usuario', (req, res) => {
+    const dadosUsuario = req.body;
+    const idUsuario = dadosUsuario.id;
+    const nomeUsuario = dadosUsuario.nomeCompleto;
+    const senhaUsuario = dadosUsuario.senhaUsuario;
+    const emailUsuario = dadosUsuario.emailUsuario;
+    const termosDeUso = 'on';
+    if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
+        //Mandar para o banco de dados
+        console.log('Passou em todos testes');
+        console.log(`id: ${idUsuario}, nome: ${nomeUsuario}, senha: ${senhaUsuario}, email: ${emailUsuario}`);
+    }
+    res.end()
+})
+
+app.delete('/usuario', (req, res) => {
+    const dadosUsuario = req.body;
+    const idUsuario = dadosUsuario.id;
+    console.log(`id: ${idUsuario}`)
+    res.end()
+})
+
+app.post('/usuarios', (req, res) => {
+    const dadosUsuario = req.body;
+    const nomeUsuario = dadosUsuario.nomeCompleto;
+    const senhaUsuario = dadosUsuario.senhaUsuario;
+    const emailUsuario = dadosUsuario.emailUsuario;
+    const termosDeUso = dadosUsuario.termosDeUso;
+    if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
+        //Mandar para o banco de dados
+        console.log('Passou em todos testes')
+        // console.log(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)
+        connection.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected!");
+            var sql = `INSERT INTO tb_usuarios (nomeUsuario, emailUsuario, senhaUsuario) VALUES ('${nomeUsuario}', '${emailUsuario}', '${senhaUsuario}')`;
+            connection.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("Linha inserida com sucesso!");
+            });
+        });
+
+    }
+    res.end()
+})
+
+function validarDados(nome, senha, email, termosDeUso) {
+    function validarTamanhoNome() {
+        const nomeTamanho = nome.length;
+
+        if (nomeTamanho < 50) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function validarCaracteresNome() {
+        {
+            const re = /(?=^.{2,60}$)^[A-ZÀÁÂĖÈÉÊÌÍÒÓÔÕÙÚÛÇ´][a-zàáâãèéêìíóôõùúç´]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$/;
+
+            const nomeValor = nome;
+
+            if (re.test(nomeValor)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    function verificarNullNome() {
+        const nomeValor = nome;
+
+        if (nomeValor !== '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function validarCaracteresSenha() {
+        const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+        const senhaValor = senha;
+
+        if (re.test(senhaValor)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function verificarNullSenha() {
+        const senhaValor = senha;
+
+        if (senhaValor !== '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function validarTamanhoMinimoEmail() {
+        const emailTamanho = email.length;
+
+        if (emailTamanho > 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function validarCaracteresEmail() {
+
+        // email@email.com -> email@email.com.br
+        const re = /\S+@\S+\.\S+/;
+
+        const emailValor = email;
+
+        if (re.test(emailValor)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function verificarNullEmail() {
+        const emailValor = email;
+
+        if (email !== '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function validarContrato() {
+        const termosDeUsoValor = termosDeUso;
+
+        if (termosDeUsoValor === 'on') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (validarTamanhoNome() && validarCaracteresNome() && verificarNullNome() && validarCaracteresSenha() && verificarNullSenha() && validarTamanhoMinimoEmail() && validarCaracteresEmail() && verificarNullEmail() && validarContrato()) {
+        return true;
+    } else {
+        console.log('Algo deu errado!')
+        return false;
+    }
+}
+
+app.listen(3000)

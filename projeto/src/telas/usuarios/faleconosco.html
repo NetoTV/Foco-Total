@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles" />
+    <title>Aplicativo React</title>
+  </head>
+
+  <body style="height: 110vh;">
+    <header id="headerComControle">
+      <img class="logo" src="/img/logo" alt="logo" style="width: 10%" />
+      <nav>
+        <ul class="nav__links">
+          <li><a href="/">Página Inicial</a></li>
+          <li><a href="/minhasTarefas">Minhas Tarefas</a></li>
+          <li><a href="/faleConosco">Fale Conosco</a></li>
+          <li><a href="#">Notificações</a></li>
+        </ul>
+      </nav>
+      <a class="cta">
+        <button id="btnLogin" onclick="window.location.href='/login'">
+          Login
+        </button>
+        <button onclick="window.location.href='/cadastrar'">
+          Cadastrar-se
+        </button>
+      </a>
+    </header>
+    <div class="container">
+      <div class="title">Fale Conosco</div>
+      <form method="POST" id="formEventos">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Nome</span>
+            <input type="text" placeholder="Digite o seu nome" name="nomeEvento" data-max-length="50" data-required
+              data-only-letters style="width: 205%" />
+            <span class="details" style="margin-top: 5px;">Email</span>
+            <input type="text" placeholder="Digite o seu email de contato" name="nomeEvento" data-max-length="50"
+              data-required data-only-letters style="width: 205%" />
+            <span class="details" style="margin-top: 5px;">Assunto</span>
+            <input type="text" placeholder="Digite o assunto da sua mensagem" name="nomeEvento" data-max-length="50"
+              data-required data-only-letters style="width: 205%" />
+          </div>
+          <textarea placeholder="Sua mensagem..." name="descricaoEvento" data-max-length="150"></textarea>
+        </div>
+        <button type="submit" id="btnCriarEvento">Enviar</button>
+        <button type="delete" id="btnExcluirEvento">Limpar</button>
+      </form>
+    </div>
+    <p class="error-validation template"></p>
+    <footer>
+      <ul class="nav__links">
+        <li class="footerTexto">© 2021 Aplicativo</li>
+      </ul>
+    </footer>
+  </body>
+  <script src="/js/controleHeader"></script>
+
+</html>
