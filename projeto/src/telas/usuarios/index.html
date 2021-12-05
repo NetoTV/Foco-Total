@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/styleHome" />
+    <link rel="stylesheet" href="/css/styleMenuLogado" />
     <title>Aplicativo React</title>
   </head>
 
@@ -28,6 +29,21 @@
         <button id="btnCadastro" onclick="window.location.href='/cadastrar'">
           Cadastrar-se
         </button>
+        <div class="action" disabled hidden>
+          <div class="profile" onclick="menuToggle();">
+            <!-- div aqui -->
+            <img src="/img/defaultUserProfile">
+          </div>
+          <div class="menu">
+            <h3>Nome<br><span>Usuário</span></h3>
+            <ul>
+              <li><img src="/img/userImage"><a href="#">Meu Perfil</a></li>
+              <li><img src="/img/editData"><a href="/editarUsuario">Editar Perfil</a></li>
+              <li><img src="/img/question"><a href="/faleConosco">Ajuda</a></li>
+              <li><img src="/img/userLogOut"><a href="#">Sair</a></li>
+            </ul>
+          </div>
+        </div>
       </a>
     </header>
 
@@ -41,7 +57,7 @@
           <span style="color: rgba(0, 136, 169, 1)">FOCO TOTAL</span>
         </h1>
         <p>
-          Planejamento e organição são essenciais para executar suas tarefas com
+          Planejamento e organização são essenciais para executar suas tarefas com
           sucesso. Agende, receba lembretes e mantenha seus planos em ordem.
         </p>
 
@@ -51,7 +67,7 @@
       </div>
     </div>
   </body>
-  <!-- <script src="/js/verificarLogado"></script> -->
+  <script src="/js/verificarLogado"></script>
   <!-- <script src="../../js/outros/controleHeader.js"></script> -->
 
 </html>

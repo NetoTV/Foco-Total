@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/styles" />
+    <link rel="stylesheet" href="/css/styleMenuLogado" />
     <link rel="stylesheet" href="/css/evo-calendar" />
     <link rel="stylesheet" type="text/css" href="/css/evo-calendar-royal-navy" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,9 +31,24 @@
         <button id="btnLogin" onclick="window.location.href='/login'">
           Login
         </button>
-        <button onclick="window.location.href='/cadastrar'">
+        <button id="btnCadastro" onclick="window.location.href='/cadastrar'">
           Cadastrar-se
         </button>
+        <div class="action" disabled hidden>
+          <div class="profile" onclick="menuToggle();">
+            <!-- div aqui -->
+            <img src="/img/defaultUserProfile">
+          </div>
+          <div class="menu">
+            <h3>Nome<br><span>Usuário</span></h3>
+            <ul>
+              <li><img src="/img/userImage"><a href="#">Meu Perfil</a></li>
+              <li><img src="/img/editData"><a href="/editarUsuario">Editar Perfil</a></li>
+              <li><img src="/img/question"><a href="/faleConosco">Ajuda</a></li>
+              <li><img src="/img/userLogOut"><a href="#">Sair</a></li>
+            </ul>
+          </div>
+        </div>
       </a>
     </header>
 
@@ -77,6 +93,7 @@
         language: "pt",
       });
     </script>
+    <script src="/js/verificarLogado"></script>
   </body>
 
 </html>

@@ -32,7 +32,7 @@ app.use(session({
     cookie: {
         secure: false, // if true only transmit cookie over https
         httpOnly: false, // if true prevent client side JS from reading the cookie 
-        maxAge: 1000 * 60 * 10 // session max age in miliseconds
+        maxAge: 1000 * 60 * 10 * 6 * 24 // session max age in miliseconds
     }
 }))
 
@@ -89,6 +89,10 @@ app.get('/css/styleLogin', (req, res) => {
 app.get('/css/styles', (req, res) => {
     res.sendFile(__dirname + "/src/css/styles.css")
 })
+
+app.get('/css/styleMenuLogado', (req, res) => {
+    res.sendFile(__dirname + "/src/css/styleMenuLogado.css")
+})
 // GET DE IMAGES
 
 app.get('/img/logo', (req, res) => {
@@ -97,6 +101,27 @@ app.get('/img/logo', (req, res) => {
 
 app.get('/img/homeImage', (req, res) => {
     res.sendFile(__dirname + "/src/images/homeImage.png")
+})
+
+// icone de usuario
+app.get('/img/userImage', (req, res) => {
+    res.sendFile(__dirname + "/src/images/menu-lateral/user.png")
+})
+
+app.get('/img/userLogOut', (req, res) => {
+    res.sendFile(__dirname + "/src/images/menu-lateral/log-out.png")
+})
+
+app.get('/img/question', (req, res) => {
+    res.sendFile(__dirname + "/src/images/menu-lateral/question.png")
+})
+
+app.get('/img/editData', (req, res) => {
+    res.sendFile(__dirname + "/src/images/menu-lateral/edit.png")
+})
+
+app.get('/img/defaultUserProfile', (req, res) => {
+    res.sendFile(__dirname + "/src/images/menu-lateral/default_user-profile.png")
 })
 
 // GET DE LOGIN
@@ -170,7 +195,15 @@ app.get('/js/controleHeader', (req, res) => {
 })
 
 app.get('/js/verificarLogado', (req, res) => {
-    res.sendFile(__dirname + "/src/js/loginUsuario/verificarLogado.js")
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            console.log(`Rodando verificar Logado ${sess.emailUsuario}`)
+            res.sendFile(__dirname + "/src/js/loginUsuario/verificarLogado.js")
+        }
+    } else {
+        res.end()
+    }
 })
 
 app.post('/login', (req, res) => {
