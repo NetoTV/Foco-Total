@@ -22,17 +22,15 @@ function menuToggle() {
     }
 }
 
-// const request = new XMLHttpRequest();
+const request = new XMLHttpRequest();
 
-// request.onreadystatechange = function () {
-//     if (request.readyState == 4 && request.status == 200) {
-//         console.log('teste')
-//         if (request.responseText === "sucess") {
-//             console.log('sucesso')
-//         }
-//     }
-// }
+request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+        const usuario = (JSON.parse(request.response))
+        document.querySelector('.cta h3').textContent = `${usuario.emailUsuario}`
+    }
+}
 
-// request.open('GET', 'http://localhost:3000/verificarLogin');
-// request.setRequestHeader("Content-Type", "application/json");
-// request.send()
+request.open('GET', '/js/getDados');
+request.setRequestHeader("Content-Type", "application/json");
+request.send()

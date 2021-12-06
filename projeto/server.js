@@ -127,7 +127,14 @@ app.get('/img/defaultUserProfile', (req, res) => {
 // GET DE LOGIN
 
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + "/src/telas/usuarios/loginUsuario.html")
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            res.sendFile(__dirname + "/src/telas/usuarios/index.html")
+        }
+    } else {
+        res.sendFile(__dirname + "/src/telas/usuarios/loginUsuario.html")
+    }
 })
 
 app.get('/js/validarLogin', (req, res) => {
@@ -148,7 +155,15 @@ app.get('/js/deslogarUsuario', (req, res) => {
 // GET CADASTRAR-SE
 
 app.get('/cadastrar', (req, res) => {
-    res.sendFile(__dirname + "/src/telas/usuarios/cadastroDeUsuarios.html")
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            console.log(`${sess.emailUsuario}`)
+            res.sendFile(__dirname + "/src/telas/usuarios/index.html")
+        }
+    } else {
+        res.sendFile(__dirname + "/src/telas/usuarios/cadastroDeUsuarios.html")
+    }
 })
 
 app.get('/js/validarCadastro', (req, res) => {
@@ -158,7 +173,15 @@ app.get('/js/validarCadastro', (req, res) => {
 // GET EDITAR USUARIO
 
 app.get('/editarUsuario', (req, res) => {
-    res.sendFile(__dirname + "/src/telas/usuarios/editarUsuario.html")
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            console.log(`${sess.emailUsuario}`)
+            res.sendFile(__dirname + "/src/telas/usuarios/editarUsuario.html")
+        }
+    } else {
+        res.sendFile(__dirname + "/src/telas/usuarios/loginUsuario.html")
+    }
 })
 
 app.get('/js/validarUsuario', (req, res) => {
@@ -172,7 +195,14 @@ app.get('/js/excluirUsuario', (req, res) => {
 // GET MINHAS TAREFAS
 
 app.get('/minhasTarefas', (req, res) => {
-    res.sendFile(__dirname + "/src/telas/usuarios/minhasTarefas.html")
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            res.sendFile(__dirname + "/src/telas/usuarios/minhasTarefas.html")
+        }
+    } else {
+        res.sendFile(__dirname + "/src/telas/usuarios/loginUsuario.html")
+    }
 })
 
 // GET FALE CONOSCO
@@ -209,8 +239,34 @@ app.get('/js/verificarLogado', (req, res) => {
     const sess = req.session;
     if (sess.emailUsuario && sess.senhaUsuario) {
         if (sess.emailUsuario) {
-            console.log(`Rodando verificar Logado ${sess.emailUsuario}`)
             res.sendFile(__dirname + "/src/js/loginUsuario/verificarLogado.js")
+        }
+    } else {
+        res.end()
+    }
+})
+
+app.get('/js/getDados', (req, res) => {
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            connection.connect(function (err) {
+                if (err) throw err;
+                console.log("Connected!");
+                var sql = `select emailUsuario, nomeUsuario from tb_usuarios
+                where emailUsuario = '${sess.emailUsuario}';`;
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+                    try {
+                        if (sess.emailUsuario === result[0].emailUsuario) {
+                            res.json({ emailUsuario: `${result[0].nomeUsuario}` });
+                        }
+                    } catch (e) {
+                        console.log(e);
+                        res.end();
+                    }
+                });
+            });
         }
     } else {
         res.end()
