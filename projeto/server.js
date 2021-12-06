@@ -134,6 +134,17 @@ app.get('/js/validarLogin', (req, res) => {
     res.sendFile(__dirname + "/src/js/loginUsuario/validarLogin.js")
 })
 
+// GET DESLOGAR
+
+app.get('/js/deslogarUsuario', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return console.log(err);
+        }
+        res.redirect("/")
+    });
+})
+
 // GET CADASTRAR-SE
 
 app.get('/cadastrar', (req, res) => {
