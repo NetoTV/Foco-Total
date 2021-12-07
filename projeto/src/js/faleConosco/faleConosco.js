@@ -58,4 +58,6 @@ btnLimparFormulario.addEventListener('click', function (e) {
     document.querySelector('input[name="emailContato"]').value = ''
     document.querySelector('input[name="assuntoContato"]').value = ''
     document.querySelector('textarea[name="descricaoContato"]').value = ''
+
+    document.querySelector('input[name="nomeUsuario"]').focus()
 });
