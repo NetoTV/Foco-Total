@@ -329,6 +329,49 @@ app.post('/faleConosco', (req, res) => {
     }
 })
 
+app.post('/novaTarefa', (req, res) => {
+    const dados = req.body;
+    const sess = req.session;
+    const nomeEvento = dados.nomeEvento;
+    const descricaoEvento = dados.descricaoEvento;
+    const dataCriacao = dados.dataCriacao;
+    const dataAgenda = dados.dataAgenda;
+    const diaAgenda = dataAgenda.slice(3, 5)
+    const mesAgenda = dataAgenda.slice(0, 2)
+    const anoAgenda = dataAgenda.slice(6, 10)
+    const dataAgendaFormatada = `${anoAgenda}-${mesAgenda}-${diaAgenda}`
+    const diaCriacao = dataCriacao.slice(3, 5)
+    const mesCriacao = dataCriacao.slice(0, 2)
+    const anoCriacao = dataCriacao.slice(6, 10)
+    const dataCriacaoFormatada = `${anoCriacao}-${mesCriacao}-${diaCriacao}`
+    console.log(sess.emailUsuario)
+
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Connected!");
+        let sql = `select * from tb_usuarios
+        where emailUsuario = '${sess.emailUsuario}';`;
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            try {
+                if (result.length > 0) {
+                    if (sess.emailUsuario === result[0].emailUsuario) {
+                        var sql = `INSERT INTO tb_tarefas (nomeTarefa, descricao, dataCriacao, dataAgenda, idUsuario) VALUES ('${nomeEvento}', '${descricaoEvento}', '${dataCriacaoFormatada}', '${dataAgendaFormatada}', '${result[0].idUsuario}')`;
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+                            res.end('sucess')
+                        })
+                    }
+                }
+            } catch (e) {
+                console.log(e);
+                res.end();
+            }
+        });
+    });
+})
+
+
 app.post('/usuario', (req, res) => {
     const sess = req.session;
     const dadosUsuario = req.body;

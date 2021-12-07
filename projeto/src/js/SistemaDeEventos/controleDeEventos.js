@@ -177,16 +177,19 @@ btnCriarEvento.addEventListener('click', function (e) {
         // Enviando formulário para o back-end  
         const request = new XMLHttpRequest();
 
+        let dataCriacao = $('#calendar').evoCalendar('getActiveDate')
+
+        let dataAgenda = document.querySelector('div .calendar-active').dataset.dateVal
         let data = {
             nomeEvento: document.querySelector('input[name="nomeEvento"]').value,
+            dataCriacao: dataCriacao,
+            dataAgenda: dataAgenda,
             descricaoEvento: document.querySelector('textarea[name="descricaoEvento"]').value
         }
-
         data = JSON.stringify(data)
-        console.log(data)
-
-        // request.open('POST', 'http://localhost:3000/usuario');
-        // request.setRequestHeader("Content-Type", "application/json");
-        // request.send(data)
+        
+        request.open('POST', 'http://localhost:3000/novaTarefa');
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send(data)
     }
 })
