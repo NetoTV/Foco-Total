@@ -174,6 +174,7 @@ app.get('/js/validarCadastro', (req, res) => {
 
 app.get('/editarUsuario', (req, res) => {
     const sess = req.session;
+    console.log(sess)
     if (sess.emailUsuario && sess.senhaUsuario) {
         if (sess.emailUsuario) {
             console.log(`${sess.emailUsuario}`)
@@ -246,6 +247,17 @@ app.get('/js/verificarLogado', (req, res) => {
     }
 })
 
+app.get('/js/verificarLogadoEditarUsuario', (req, res) => {
+    const sess = req.session;
+    if (sess.emailUsuario && sess.senhaUsuario) {
+        if (sess.emailUsuario) {
+            res.sendFile(__dirname + "/src/js/editarUsuario/verificarLogadoEditar.js")
+        }
+    } else {
+        res.end()
+    }
+})
+
 app.get('/js/getDados', (req, res) => {
     const sess = req.session;
     if (sess.emailUsuario && sess.senhaUsuario) {
@@ -258,8 +270,12 @@ app.get('/js/getDados', (req, res) => {
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
                     try {
+                        console.log(sess)
                         if (sess.emailUsuario === result[0].emailUsuario) {
-                            res.json({ emailUsuario: `${result[0].nomeUsuario}` });
+                            res.json({
+                                nomeUsuario: `${result[0].nomeUsuario}`,
+                                emailUsuario: `${result[0].emailUsuario}`
+                            });
                         }
                     } catch (e) {
                         console.log(e);
@@ -307,18 +323,75 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/usuario', (req, res) => {
+    const sess = req.session;
     const dadosUsuario = req.body;
-    const idUsuario = dadosUsuario.id;
     const nomeUsuario = dadosUsuario.nomeCompleto;
     const senhaUsuario = dadosUsuario.senhaUsuario;
+    const senhaUsuarioNova = dadosUsuario.senhaUsuarioNova;
     const emailUsuario = dadosUsuario.emailUsuario;
     const termosDeUso = 'on';
-    if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
-        //Mandar para o banco de dados
-        console.log('Passou em todos testes');
-        console.log(`id: ${idUsuario}, nome: ${nomeUsuario}, senha: ${senhaUsuario}, email: ${emailUsuario}`);
+
+    if (senhaUsuarioNova !== '') {
+        if (validarDados(nomeUsuario, senhaUsuarioNova, emailUsuario, termosDeUso)) {
+            if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
+                connection.connect(function (err) {
+                    if (err) throw err;
+                    console.log("Connected!");
+                    let sql = `select emailUsuario, senhaUsuario from tb_usuarios
+                    where emailUsuario = '${sess.emailUsuario}' && senhaUsuario = '${senhaUsuario}';`;
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+                        try {
+                            if (sess.emailUsuario === result[0].emailUsuario && senhaUsuario === result[0].senhaUsuario) {
+                                sql = `UPDATE tb_usuarios set nomeUsuario = '${nomeUsuario}', senhaUsuario = '${senhaUsuarioNova}', emailUsuario = '${emailUsuario}' WHERE emailUsuario = '${sess.emailUsuario}';`
+                                connection.query(sql, function (err, result) {
+                                    if (err) throw err;
+                                    req.session.destroy(err => {
+                                        if (err) {
+                                            return console.log(err);
+                                        }
+                                    });
+                                    res.end('sucess')
+                                })
+                            }
+                        } catch (e) {
+                            console.log(e);
+                            res.end();
+                        }
+                    });
+                });
+            }
+        }
+    } else {
+        if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
+            connection.connect(function (err) {
+                if (err) throw err;
+                console.log("Connected!");
+                let sql = `select emailUsuario, senhaUsuario from tb_usuarios
+                where emailUsuario = '${sess.emailUsuario}' && senhaUsuario = '${senhaUsuario}';`;
+                connection.query(sql, function (err, result) {
+                    if (err) throw err;
+                    try {
+                        if (sess.emailUsuario === result[0].emailUsuario && senhaUsuario === result[0].senhaUsuario) {
+                            sql = `UPDATE tb_usuarios set nomeUsuario = '${nomeUsuario}', emailUsuario = '${emailUsuario}' WHERE emailUsuario = '${sess.emailUsuario}';`
+                            connection.query(sql, function (err, result) {
+                                if (err) throw err;
+                                req.session.destroy(err => {
+                                    if (err) {
+                                        return console.log(err);
+                                    }
+                                });
+                                res.end('sucess')
+                            })
+                        }
+                    } catch (e) {
+                        console.log(e);
+                        res.end()
+                    }
+                });
+            });
+        }
     }
-    res.end()
 })
 
 app.delete('/usuario', (req, res) => {

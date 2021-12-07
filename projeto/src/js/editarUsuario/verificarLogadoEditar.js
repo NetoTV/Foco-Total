@@ -21,16 +21,3 @@ function menuToggle() {
         }
     }
 }
-
-const request = new XMLHttpRequest();
-
-request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-        const usuario = (JSON.parse(request.response))
-        document.querySelector('.cta h3').textContent = `${usuario.nomeUsuario}`
-    }
-}
-
-request.open('GET', '/js/getDados');
-request.setRequestHeader("Content-Type", "application/json");
-request.send()

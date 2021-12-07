@@ -1,3 +1,18 @@
+const request = new XMLHttpRequest();
+
+request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200 && request.responseURL === "http://localhost:3000/js/getDados") {
+        const usuario = (JSON.parse(request.response))
+        document.querySelector('.cta h3').textContent = `${usuario.nomeUsuario}`
+        document.getElementsByName("nomeCompleto")[0].value = `${usuario.nomeUsuario}`
+        document.getElementsByName("emailUsuario")[0].value = `${usuario.emailUsuario}`
+    }
+}
+
+request.open('GET', '/js/getDados');
+request.setRequestHeader("Content-Type", "application/json");
+request.send()
+
 class Validacao {
     constructor() {
         this.validations = [
@@ -173,22 +188,34 @@ let validator = new Validacao();
 // evento que dispara as validações
 btnEditarUsuario.addEventListener('click', function (e) {
     e.preventDefault();
+
     let form = document.getElementById('formEditarUsuario')
+
     validator.validate(form);
     // Validando dados
     if (document.querySelectorAll('.error-validation').length === 1) {
-        // Enviando formulário para o back-end  
-        const request = new XMLHttpRequest();
+        // Enviando formulário para o back-end
 
         let data = {
-            id: 1,
             nomeCompleto: document.querySelector('input[name="nomeCompleto"]').value,
-            senhaUsuario: document.querySelector('input[name="senhaUsuarioNova"]').value,
+            senhaUsuario: document.querySelector('input[name="senhaUsuarioAtual"]').value,
+            senhaUsuarioNova: document.querySelector('input[name="senhaUsuarioNova"]').value,
             emailUsuario: document.querySelector('input[name="emailUsuario"]').value
         }
 
-        data = JSON.stringify(data)
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200 && request.responseURL === "http://localhost:3000/usuario") {
+                setTimeout(function () {
+                    if (request.responseText === "sucess") {
+                        window.location.href = "/login";
+                    }
+                }, 250);
+                setTimeout()
+            }
+        }
 
+        data = JSON.stringify(data)
+        console.log(data)
         request.open('POST', 'http://localhost:3000/usuario');
         request.setRequestHeader("Content-Type", "application/json");
         request.send(data)
