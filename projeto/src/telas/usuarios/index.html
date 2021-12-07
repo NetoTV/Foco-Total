@@ -8,10 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/styleHome" />
     <link rel="stylesheet" href="/css/styleMenuLogado" />
-    <title>Aplicativo React</title>
+    <title>Foco Total</title>
   </head>
 
   <body style="height: 105vh">
+ 
     <header id="headerComControle">
       <img class="logo" src="/img/logo" alt="logo" style="width: 10%" />
       <nav>
@@ -29,23 +30,24 @@
         <button id="btnCadastro" onclick="window.location.href='/cadastrar'">
           Cadastrar-se
         </button>
-        <div class="action" disabled hidden>
-          <div class="profile" onclick="menuToggle();">
-            <!-- div aqui -->
-            <img src="/img/defaultUserProfile">
-          </div>
-          <div class="menu">
-            <h3>Nome<br><span>Usuário</span></h3>
-            <ul>
-              <li><img src="/img/userImage"><a href="#">Meu Perfil</a></li>
-              <li><img src="/img/editData"><a href="/editarUsuario">Editar Perfil</a></li>
-              <li><img src="/img/question"><a href="/faleConosco">Ajuda</a></li>
-              <li><img src="/img/userLogOut"><a href="/js/deslogarUsuario">Sair</a></li>
-            </ul>
-          </div>
-        </div>
+        
       </a>
     </header>
+
+    <div class="action" disabled hidden>
+      <div class="profile" onclick="menuToggle();">
+        <!-- div aqui -->
+        <img src="/img/defaultUserProfile">
+      </div>
+      <div class="menu">
+        <h3>Nome<br><span>Usuário</span></h3>
+        <ul>
+          <li><img src="/img/editData"><a href="/editarUsuario">Editar Perfil</a></li>
+          <li><img src="/img/question"><a href="/faleConosco">Ajuda</a></li>
+          <li><img src="/img/userLogOut"><a href="/js/deslogarUsuario">Sair</a></li>
+        </ul>
+      </div>
+    </div>
 
     <div class="containerHome">
       <section>
@@ -62,7 +64,7 @@
         </p>
 
         <button onclick="window.location.href='/minhasTarefas'">
-          Comece Já!
+          Comece já!
         </button>
       </div>
     </div>

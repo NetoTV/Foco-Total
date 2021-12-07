@@ -47,7 +47,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'db_foco_total',
-    password: 'admin'
+    password: 'jukinha1478'
 });
 
 // app.get('/', (req, res) => {
