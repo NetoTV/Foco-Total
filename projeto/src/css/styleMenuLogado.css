@@ -56,11 +56,12 @@
     width: 100%;
     text-align: center;
     font-size: 18px;
-    padding: 20px 0;
+    padding: 10px 0;
     font-weight: 500;
     font-size: 18px;
     color: #555;
     line-height: 1.2em;
+    font-family: "Montserrat", sans-serif;
 }
 
 .action .menu h3 span {
