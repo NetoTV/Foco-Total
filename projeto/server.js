@@ -47,7 +47,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'db_foco_total',
-    password: 'jukinha1478'
+    password: 'admin'
 });
 
 // app.get('/', (req, res) => {
@@ -69,7 +69,6 @@ app.get('/', (req, res) => {
     const sess = req.session;
     if (sess.emailUsuario && sess.senhaUsuario) {
         if (sess.emailUsuario) {
-            console.log(`${sess.emailUsuario}`)
             res.sendFile(__dirname + "/src/telas/usuarios/index.html")
         }
     } else {
@@ -158,7 +157,6 @@ app.get('/cadastrar', (req, res) => {
     const sess = req.session;
     if (sess.emailUsuario && sess.senhaUsuario) {
         if (sess.emailUsuario) {
-            console.log(`${sess.emailUsuario}`)
             res.sendFile(__dirname + "/src/telas/usuarios/index.html")
         }
     } else {
@@ -177,7 +175,6 @@ app.get('/editarUsuario', (req, res) => {
     console.log(sess)
     if (sess.emailUsuario && sess.senhaUsuario) {
         if (sess.emailUsuario) {
-            console.log(`${sess.emailUsuario}`)
             res.sendFile(__dirname + "/src/telas/usuarios/editarUsuario.html")
         }
     } else {
@@ -191,6 +188,12 @@ app.get('/js/validarUsuario', (req, res) => {
 
 app.get('/js/excluirUsuario', (req, res) => {
     res.sendFile(__dirname + "/src/js/excluirUsuario/excluirUsuario.js")
+})
+
+// GET FALE CONOSCO
+
+app.get('/js/faleConosco', (req, res) => {
+    res.sendFile(__dirname + "/src/js/faleConosco/faleConosco.js")
 })
 
 // GET MINHAS TAREFAS
@@ -270,7 +273,6 @@ app.get('/js/getDados', (req, res) => {
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
                     try {
-                        console.log(sess)
                         if (sess.emailUsuario === result[0].emailUsuario) {
                             res.json({
                                 nomeUsuario: `${result[0].nomeUsuario}`,
@@ -292,8 +294,6 @@ app.get('/js/getDados', (req, res) => {
 app.post('/login', (req, res) => {
     const sess = req.session;
     const { emailUsuario, senhaUsuario } = req.body
-    console.log(req.body)
-    console.log(emailUsuario, senhaUsuario)
 
     if (validarDados('Pedro Henrique', senhaUsuario, emailUsuario, 'on')) {
         //Mandar para o banco de dados
@@ -314,13 +314,20 @@ app.post('/login', (req, res) => {
                     }
                 } catch (e) {
                     console.log('Dados inválidos!');
-                    res.end();
+                    res.end('dataInvalid');
                     console.log(e);
                 }
             });
         });
     }
 });
+
+app.post('/faleConosco', (req, res) => {
+    const dados = req.body
+    if (dados.nomeUsuario && dados.emailContato && dados.assuntoContato && dados.descricaoContato) {
+        res.end('sucess')
+    }
+})
 
 app.post('/usuario', (req, res) => {
     const sess = req.session;
@@ -395,10 +402,34 @@ app.post('/usuario', (req, res) => {
 })
 
 app.delete('/usuario', (req, res) => {
-    const dadosUsuario = req.body;
-    const idUsuario = dadosUsuario.id;
-    console.log(`id: ${idUsuario}`)
-    res.end()
+    const sess = req.session;
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Connected!");
+        let sql = `select emailUsuario from tb_usuarios
+        where emailUsuario = '${sess.emailUsuario}';`;
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            try {
+                if (sess.emailUsuario === result[0].emailUsuario) {
+                    sql = `delete from tb_usuarios
+                    where emailUsuario = '${sess.emailUsuario}';`
+                    connection.query(sql, function (err, result) {
+                        if (err) throw err;
+                        req.session.destroy(err => {
+                            if (err) {
+                                return console.log(err);
+                            }
+                        });
+                        res.end('sucess')
+                    })
+                }
+            } catch (e) {
+                console.log(e);
+                res.end();
+            }
+        });
+    });
 })
 
 app.post('/usuarios', (req, res) => {
@@ -410,19 +441,30 @@ app.post('/usuarios', (req, res) => {
     if (validarDados(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)) {
         //Mandar para o banco de dados
         console.log('Passou em todos testes')
-        // console.log(nomeUsuario, senhaUsuario, emailUsuario, termosDeUso)
         connection.connect(function (err) {
             if (err) throw err;
             console.log("Connected!");
-            var sql = `INSERT INTO tb_usuarios (nomeUsuario, emailUsuario, senhaUsuario) VALUES ('${nomeUsuario}', '${emailUsuario}', '${senhaUsuario}')`;
+            let sql = `select emailUsuario from tb_usuarios
+            where emailUsuario = '${emailUsuario}'`;
             connection.query(sql, function (err, result) {
                 if (err) throw err;
-                console.log("Linha inserida com sucesso!");
+                if (result.length === 0) {
+                    connection.connect(function (err) {
+                        if (err) throw err;
+                        console.log("Connected!");
+                        var sql = `INSERT INTO tb_usuarios (nomeUsuario, emailUsuario, senhaUsuario) VALUES ('${nomeUsuario}', '${emailUsuario}', '${senhaUsuario}')`;
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+                            console.log("Usuário criado com sucesso!");
+                            res.end('sucess')
+                        });
+                    });
+                } else {
+                    res.end('alreadyExist')
+                }
             });
         });
-
     }
-    res.end()
 })
 
 function validarDados(nome, senha, email, termosDeUso) {

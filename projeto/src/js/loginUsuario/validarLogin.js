@@ -197,6 +197,12 @@ btnLogins.addEventListener('click', function (e) {
             if (request.readyState == 4 && request.status == 200) {
                 if (request.responseText === "sucess") {
                     window.location.href = "/";
+                } else if (request.response === "dataInvalid") {
+                    let template = document.querySelector('.error-validation').cloneNode(true)
+                    template.textContent = "Dados inválidos!";
+                    let inputParent = document.querySelector('input[name="senhaUsuario"]').parentNode
+                    template.classList.remove('template')
+                    inputParent.appendChild(template);
                 }
             }
         }

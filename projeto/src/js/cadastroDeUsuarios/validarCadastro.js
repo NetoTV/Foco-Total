@@ -188,6 +188,29 @@ btnCadastro.addEventListener('click', function (e) {
         // Enviando formulário para o back-end  
         const request = new XMLHttpRequest();
 
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200 && request.responseURL === "http://localhost:3000/usuarios") {
+                setTimeout(function () {
+                    if (request.responseText === "sucess") {
+                        alert('Usuário cadastrado com sucesso!')
+                        window.location.href = "/login";
+                    } else if (request.responseText === "alreadyExist") {
+                        // alert('Já existe um usuário cadastrado com este email!')
+                        document.querySelector('input[name="emailUsuario"]').value = ''
+                        document.querySelector('input[name="emailUsuario"]').focus()
+
+                        let template = document.querySelector('.error-validation').cloneNode(true)
+                        template.textContent = "Digite um Email disponível!";
+                        let inputParent = document.querySelector('input[name="emailUsuario"]').parentNode
+                        template.classList.remove('template')
+
+                        inputParent.appendChild(template);
+                    }
+                }, 250);
+                setTimeout(0)
+            }
+        }
+
         let data = {
             nomeCompleto: document.querySelector('input[name="nomeCompleto"]').value,
             senhaUsuario: document.querySelector('input[name="senhaUsuario"]').value,

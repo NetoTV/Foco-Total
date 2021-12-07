@@ -207,6 +207,7 @@ btnEditarUsuario.addEventListener('click', function (e) {
             if (request.readyState == 4 && request.status == 200 && request.responseURL === "http://localhost:3000/usuario") {
                 setTimeout(function () {
                     if (request.responseText === "sucess") {
+                        alert('Dados alterados com sucesso!')
                         window.location.href = "/login";
                     }
                 }, 250);
@@ -221,3 +222,25 @@ btnEditarUsuario.addEventListener('click', function (e) {
         request.send(data)
     }
 })
+
+let btnExcluirUsuario = document.getElementById('btnExcluirUsuario')
+
+btnExcluirUsuario.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200 && request.responseURL === "http://localhost:3000/usuario") {
+            setTimeout(function () {
+                if (request.responseText === "sucess") {
+                    alert('Usuário excluido com sucesso!')
+                    window.location.href = "/login";
+                }
+            }, 250);
+            setTimeout()
+        }
+    }
+
+    request.open('DELETE', 'http://localhost:3000/usuario');
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send()
+});

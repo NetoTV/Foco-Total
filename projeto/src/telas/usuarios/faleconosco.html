@@ -51,19 +51,19 @@
         <div class="user-details">
           <div class="input-box">
             <span class="details">Nome</span>
-            <input type="text" placeholder="Digite o seu nome" name="nomeEvento" data-max-length="50" data-required
+            <input type="text" placeholder="Digite o seu nome" name="nomeUsuario" data-max-length="50" data-required
               data-only-letters style="width: 205%" />
             <span class="details" style="margin-top: 5px;">Email</span>
-            <input type="text" placeholder="Digite o seu email de contato" name="nomeEvento" data-max-length="50"
+            <input type="text" placeholder="Digite o seu email de contato" name="emailContato" data-max-length="50"
               data-required data-only-letters style="width: 205%" />
             <span class="details" style="margin-top: 5px;">Assunto</span>
-            <input type="text" placeholder="Digite o assunto da sua mensagem" name="nomeEvento" data-max-length="50"
+            <input type="text" placeholder="Digite o assunto da sua mensagem" name="assuntoContato" data-max-length="50"
               data-required data-only-letters style="width: 205%" />
           </div>
-          <textarea placeholder="Sua mensagem..." name="descricaoEvento" data-max-length="150"></textarea>
+          <textarea placeholder="Sua mensagem..." name="descricaoContato" data-max-length="150"></textarea>
         </div>
-        <button type="submit" id="btnCriarEvento">Enviar</button>
-        <button type="delete" id="btnExcluirEvento">Limpar</button>
+        <button type="submit" id="btnEnviarFormulario">Enviar</button>
+        <button type="delete" id="btnLimparFormulario">Limpar</button>
       </form>
     </div>
     <p class="error-validation template"></p>
@@ -75,5 +75,6 @@
   </body>
   <script src="/js/controleHeader"></script>
   <script src="/js/verificarLogado"></script>
+  <script src="/js/faleConosco"></script>
 
 </html>

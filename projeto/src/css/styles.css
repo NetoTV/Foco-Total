@@ -223,12 +223,12 @@ form button{
         25deg, #0ac89f, rgba(0, 136, 169, 1));
 }
 
-#btnExcluirUsuario, #btnExcluirEvento{
+#btnExcluirUsuario, #btnExcluirEvento, #btnLimparFormulario{
     margin-top: 1.5%;
     background: linear-gradient(
         25deg, #471d1d, #FF1A1A);
 }
-#btnExcluirUsuario:hover, #btnExcluirEvento:hover{
+#btnExcluirUsuario:hover, #btnExcluirEvento:hover, #btnLimparFormulario:hover{
     background: linear-gradient(
         25deg, #ff1a1ab7, #471d1d);
 }
