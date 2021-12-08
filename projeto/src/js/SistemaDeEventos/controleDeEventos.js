@@ -1,3 +1,24 @@
+const request2 = new XMLHttpRequest();
+
+request2.open('GET', 'http://localhost:3000/js/getTarefas');
+request2.setRequestHeader("Content-Type", "application/json");
+request2.send()
+
+request2.onreadystatechange = function () {
+    if (request2.readyState == 4 && request2.status == 200 && request2.responseURL === 'http://localhost:3000/js/getTarefas') {
+        let dadosCalendario = JSON.parse(request2.response)
+        dadosCalendario.forEach((elemento) => {
+            $('#calendar').evoCalendar('addCalendarEvent', {
+                id: elemento.idTarefa,
+                name: elemento.nomeTarefa,
+                description: elemento.descricao,
+                date: elemento.dataAgenda,
+                type: 'event'
+            });
+        })
+    }
+}
+
 class Validacao {
     constructor() {
         this.validations = [
@@ -163,7 +184,7 @@ class Validacao {
     }
 }
 
-let btnCriarEvento = document.getElementById('btnCriarEvento')
+const btnCriarEvento = document.getElementById('btnCriarEvento')
 
 let validator = new Validacao();
 
@@ -174,8 +195,17 @@ btnCriarEvento.addEventListener('click', function (e) {
     validator.validate(form);
     // Validando dados
     if (document.querySelectorAll('.error-validation').length === 1) {
-        // Enviando formulário para o back-end  
-        const request = new XMLHttpRequest();
+        // Enviando formulário para o back-end
+
+        request2.onreadystatechange = function () {
+            if (request2.readyState == 4 && request2.status == 200 && request2.responseURL === 'http://localhost:3000/novaTarefa') {
+                alert('Evento adicionado com sucesso!')
+                window.location.href = "/minhasTarefas";
+                // document.querySelector('input[name="nomeEvento"]').value = ''
+                // document.querySelector('textarea[name="descricaoEvento"]').value = ''
+                // document.querySelector('input[name="nomeEvento"]').focus()
+            }
+        }
 
         let dataCriacao = $('#calendar').evoCalendar('getActiveDate')
 
@@ -187,9 +217,39 @@ btnCriarEvento.addEventListener('click', function (e) {
             descricaoEvento: document.querySelector('textarea[name="descricaoEvento"]').value
         }
         data = JSON.stringify(data)
-        
-        request.open('POST', 'http://localhost:3000/novaTarefa');
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(data)
+
+        request2.open('POST', 'http://localhost:3000/novaTarefa');
+        request2.setRequestHeader("Content-Type", "application/json");
+        request2.send(data)
     }
+})
+
+const btnExcluirEvento = document.getElementById('btnExcluirEvento')
+
+btnExcluirEvento.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    request2.onreadystatechange = function () {
+        if (request2.readyState == 4 && request2.status == 200 && request2.responseURL === 'http://localhost:3000/deletarTarefa') {
+            alert('Evento excluido com sucesso!')
+            window.location.href = "/minhasTarefas";
+            // document.querySelector('input[name="nomeEvento"]').value = ''
+            // document.querySelector('textarea[name="descricaoEvento"]').value = ''
+            // document.querySelector('input[name="nomeEvento"]').focus()
+        }
+    }
+
+    let dataAgenda = document.querySelector('div .calendar-active').dataset.dateVal
+
+    let data = {
+        idEvento: document.querySelector('div .event-list .event-container').dataset.eventIndex,
+        nomeEvento: document.querySelector('div .event-list .event-container .event-title').textContent,
+        dataAgenda: dataAgenda,
+        descricaoEvento: document.querySelector('div .event-list .event-container .event-desc').textContent
+    }
+    data = JSON.stringify(data)
+
+    request2.open('DELETE', 'http://localhost:3000/deletarTarefa');
+    request2.setRequestHeader("Content-Type", "application/json");
+    request2.send(data)
 })

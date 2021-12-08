@@ -268,7 +268,7 @@ app.get('/js/getDados', (req, res) => {
             connection.connect(function (err) {
                 if (err) throw err;
                 console.log("Connected!");
-                var sql = `select emailUsuario, nomeUsuario from tb_usuarios
+                let sql = `select emailUsuario, nomeUsuario from tb_usuarios
                 where emailUsuario = '${sess.emailUsuario}';`;
                 connection.query(sql, function (err, result) {
                     if (err) throw err;
@@ -301,7 +301,7 @@ app.post('/login', (req, res) => {
         connection.connect(function (err) {
             if (err) throw err;
             console.log("Connected!");
-            var sql = `select emailUsuario, senhaUsuario from tb_usuarios
+            let sql = `select emailUsuario, senhaUsuario from tb_usuarios
             where emailUsuario = '${emailUsuario}' && senhaUsuario = '${senhaUsuario}' ;`;
             connection.query(sql, function (err, result) {
                 if (err) throw err;
@@ -329,6 +329,56 @@ app.post('/faleConosco', (req, res) => {
     }
 })
 
+app.get('/js/getTarefas', (req, res) => {
+    const sess = req.session;
+
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Connected!");
+        let sql = `select * from tb_usuarios
+        where emailUsuario = '${sess.emailUsuario}';`;
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            try {
+                if (result.length > 0) {
+                    connection.connect(function (err) {
+                        if (err) throw err;
+                        console.log("Connected!");
+                        let sql = `select * from tb_tarefas
+                        where idUsuario = '${result[0].idUsuario}';`;
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+                            try {
+                                if (result.length > 0) {
+                                    let dadosFormatados = []
+                                    result.forEach((elemento, indice) => {
+                                        let myDate = new Date(result[indice].dataAgenda);
+                                        let dataAgendaFormatada = (myDate.getMonth() + 1) + '/' + myDate.getDate() + '/' + myDate.getFullYear()
+
+                                        dadosFormatados[indice] = {
+                                            idTarefa: elemento.idTarefa,
+                                            nomeTarefa: elemento.nomeTarefa,
+                                            descricao: elemento.descricao,
+                                            dataAgenda: dataAgendaFormatada
+                                        }
+                                    })
+                                    res.send(JSON.stringify(dadosFormatados))
+                                }
+                            } catch (e) {
+                                console.log(e);
+                                res.end();
+                            }
+                        });
+                    });
+                }
+            } catch (e) {
+                console.log(e);
+                res.end();
+            }
+        });
+    });
+})
+
 app.post('/novaTarefa', (req, res) => {
     const dados = req.body;
     const sess = req.session;
@@ -336,6 +386,7 @@ app.post('/novaTarefa', (req, res) => {
     const descricaoEvento = dados.descricaoEvento;
     const dataCriacao = dados.dataCriacao;
     const dataAgenda = dados.dataAgenda;
+    console.log(dataAgenda)
     const diaAgenda = dataAgenda.slice(3, 5)
     const mesAgenda = dataAgenda.slice(0, 2)
     const anoAgenda = dataAgenda.slice(6, 10)
@@ -356,7 +407,7 @@ app.post('/novaTarefa', (req, res) => {
             try {
                 if (result.length > 0) {
                     if (sess.emailUsuario === result[0].emailUsuario) {
-                        var sql = `INSERT INTO tb_tarefas (nomeTarefa, descricao, dataCriacao, dataAgenda, idUsuario) VALUES ('${nomeEvento}', '${descricaoEvento}', '${dataCriacaoFormatada}', '${dataAgendaFormatada}', '${result[0].idUsuario}')`;
+                        let sql = `INSERT INTO tb_tarefas (nomeTarefa, descricao, dataCriacao, dataAgenda, idUsuario) VALUES ('${nomeEvento}', '${descricaoEvento}', '${dataCriacaoFormatada}', '${dataAgendaFormatada}', '${result[0].idUsuario}')`;
                         connection.query(sql, function (err, result) {
                             if (err) throw err;
                             res.end('sucess')
@@ -371,6 +422,49 @@ app.post('/novaTarefa', (req, res) => {
     });
 })
 
+app.delete('/deletarTarefa', (req, res) => {
+    const sess = req.session;
+    const dados = req.body;
+
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Connected!");
+        let sql = `select * from tb_tarefas
+        where idTarefa = ${dados.idEvento};`;
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            if (result.length > 0) {
+                try {
+                    if (dados.idEvento == result[0].idTarefa) {
+                        let sql = `delete from tb_tarefas where idTarefa = '${dados.idEvento}';`
+                        connection.query(sql, function (err, result) {
+                            if (err) throw err;
+                            res.end('sucess')
+                        })
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+            // try {
+            //     if (result.length > 0) {
+            //         if (dados.idEvento == result[0].idTarefa) {
+            //             console.log('aqui')
+            //             let sql = `delete * from tb_tarefas
+            //             where idTarefa = ${dados.idEvento};`
+            //             connection.query(sql, function (err, result) {
+            //                 if (err) throw err;
+            //                 res.end('sucess')
+            //             })
+            //         }
+            //     }
+            // } catch (e) {
+            //     console.log(e);
+            //     res.end();
+            // }
+        });
+    });
+})
 
 app.post('/usuario', (req, res) => {
     const sess = req.session;
@@ -495,7 +589,7 @@ app.post('/usuarios', (req, res) => {
                     connection.connect(function (err) {
                         if (err) throw err;
                         console.log("Connected!");
-                        var sql = `INSERT INTO tb_usuarios (nomeUsuario, emailUsuario, senhaUsuario) VALUES ('${nomeUsuario}', '${emailUsuario}', '${senhaUsuario}')`;
+                        let sql = `INSERT INTO tb_usuarios (nomeUsuario, emailUsuario, senhaUsuario) VALUES ('${nomeUsuario}', '${emailUsuario}', '${senhaUsuario}')`;
                         connection.query(sql, function (err, result) {
                             if (err) throw err;
                             console.log("Usuário criado com sucesso!");
