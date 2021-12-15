@@ -6,11 +6,15 @@
 
 ## :camera: Demonstração
 
-![gif](github/GoFinances.gif)
-![png1](https://github.com/NetoTV/Foco-Total/blob/main/projeto/src/images/logo.png)
-![png2](github/dashboardL.png)
-![png3](github/importD.png)
-![png4](github/importL.png)
+![png1](github/Home.png)
+![png2](github/Cadastro.png)
+![png3](github/Login.png)
+![png4](github/Painel.png)
+![png5](github/Calendario.png)
+![png6](github/Evento.png)
+![png7](github/CalendarioEvento.png)
+![png8](github/FaleConosco.png)
+![png9](github/EditarDados.png)
 
 ## :rocket: Tecnologias
 
