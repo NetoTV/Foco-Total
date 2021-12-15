@@ -7,7 +7,7 @@
 ## :camera: Demonstração
 
 ![gif](github/GoFinances.gif)
-![png1](github/dashboardD.png)
+![png1](https://github.com/NetoTV/Foco-Total/blob/main/projeto/src/images/logo.png)
 ![png2](github/dashboardL.png)
 ![png3](github/importD.png)
 ![png4](github/importL.png)
