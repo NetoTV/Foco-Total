@@ -157,7 +157,7 @@ app.get('/cadastrar', (req, res) => {
     const sess = req.session;
     if (sess.emailUsuario && sess.senhaUsuario) {
         if (sess.emailUsuario) {
-            res.sendFile(__dirname + "/src/telas/usuarios/index.html")
+            res.sendFile(__dirname + "/src/telas/usuarios/minhasTarefas.html")
         }
     } else {
         res.sendFile(__dirname + "/src/telas/usuarios/cadastroDeUsuarios.html")
