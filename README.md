@@ -7,8 +7,8 @@
 ## :camera: Demonstração
 
 ![png1](github/Home.png)
-![png2](github/Cadastro.png)
-![png3](github/Login.png)
+![png2](github/Login.png)
+![png3](github/Cadastro.png)
 ![png4](github/Painel.png)
 ![png5](github/Calendario.png)
 ![png6](github/Evento.png)
