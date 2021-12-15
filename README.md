@@ -13,8 +13,8 @@
 ![png5](github/Calendario.png)
 ![png6](github/Evento.png)
 ![png7](github/CalendarioEvento.png)
-![png8](github/FaleConosco.png)
-![png9](github/EditarDados.png)
+![png8](github/EditarDados.png)
+![png9](github/FaleConosco.png)
 
 ## :rocket: Tecnologias
 
